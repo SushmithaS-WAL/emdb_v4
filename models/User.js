@@ -5,7 +5,8 @@ const userSchema = mongoose.Schema({
     username: String,
     password: String,
     authorization: String,
-    token: String
+    token: String,
+    review:[]
 });
 
 const user = mongoose.model('users', userSchema);
