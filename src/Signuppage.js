@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import bootstrap from 'bootstrap';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 class Signuppage extends Component {
 
@@ -15,6 +16,7 @@ class Signuppage extends Component {
         this.makeadmin=this.makeadmin.bind(this);
         this.getusername=this.getusername.bind(this);
         this.getpassword=this.getpassword.bind(this);
+        this.signup=this.signup.bind(this);
     }
 
     //function to make the user admin
@@ -38,6 +40,34 @@ class Signuppage extends Component {
         })
     }
 
+    //function to register the user
+    signup(){
+        axios({
+            method:'post',
+            url:"http://localhost:3001/register",
+            data:{
+                username:this.state.username,
+                password:this.state.password,
+                authorization:this.state.admin
+            }
+        })
+        .then((obj)=>{
+            swal({
+                title: "Success",
+                text: "You have been registered",
+                icon: "success",
+                button: "Enjoy"
+              })
+        })
+        .catch((error)=>{
+            swal({
+                title: "Warning",
+                text: "Could not connect to database",
+                icon: "warning"
+              })
+        })
+    }
+
     render(){
         return(
             <div className="Slideshow">
@@ -52,7 +82,7 @@ class Signuppage extends Component {
                     <input type="checkbox" onClick={this.makeadmin} className="Signupformcheckbox"></input>
                     <label>I want to be an Editor</label>
                 </div>
-                <button className="Signupformbutton">SIGN UP</button>
+                <button className="Signupformbutton" onClick={this.signup}>SIGN UP</button>
             </div>
             </div>
         )

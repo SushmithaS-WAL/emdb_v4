@@ -1,5 +1,7 @@
 const movie = require('../models/Movies');
 const axios = require('axios');
+const argon2 = require('argon2');
+const user = require('../models/User')
 
 //search function
 searchHandler = (req, res) => {
@@ -74,7 +76,32 @@ loginHandler = (req,res) => {
     }
 }
 
+//function to encrypt password and register the user
+encryptpassword = (username,password,authority) => {
+    argon2.hash(password)
+    .then((encryptedpass)=>{
+        user.user.create({username:username,password:encryptedpass,authorization:authority})
+    })
+}
+
+//function to fetch data to register the user
+registerHandler = (req,res) => {
+    username = req.body.username;
+    password = req.body.password;
+    var authority;
+    authorization = req.body.authorization;
+    if(authorization === true){
+        authority = 'admin'
+    }
+    else{
+        authority = 'common'
+    }
+    encryptpassword(username,password,authority);
+    res.send('success');
+}
+
 module.exports = {
     searchHandler,
-    loginHandler
+    loginHandler,
+    registerHandler
 }
