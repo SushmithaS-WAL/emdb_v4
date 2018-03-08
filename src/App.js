@@ -96,7 +96,7 @@ class App extends Component {
           <button className="Loginbutton" onClick={this.loginform}>Log In</button>
         </div>
         {this.state.listorslideshow ? <MovieList result = {this.state.results} /> : <Slideshow />}
-        {this.state.loginform ? <Loginpage /> : <Slideshow />}
+        {this.state.loginform ? <Loginpage /> : null}
       </div>
     )
 

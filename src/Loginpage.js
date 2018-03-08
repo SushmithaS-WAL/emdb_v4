@@ -85,7 +85,7 @@ class Loginpage extends Component {
                 <input type="password" placeholder="Password" className="Password" value={this.state.password} onChange={this.getpassword}></input>
                 <button className="Loginformbutton" onClick={this.loginfunction}>LOGIN</button>
                 <div className="Signuplink" onClick={this.signupform}>
-                    New here ? Create an Account
+                    New here ? Create an Account.
                 </div>
             </div>
             </div>
