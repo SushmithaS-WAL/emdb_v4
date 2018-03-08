@@ -4,6 +4,7 @@ import axios from 'axios';
 import swal from 'sweetalert'
 import Slideshow from './slideshow';
 import MovieList from './MovieList';
+import Loginpage from './Loginpage';
 
 class App extends Component {
 
@@ -13,12 +14,14 @@ class App extends Component {
       category:'movie',
       keyword:'',
       results:[],
-      listorslideshow:false
+      listorslideshow:false,
+      loginform:false
     }
     this.searchKeyword=this.searchKeyword.bind(this);
     this.search=this.search.bind(this);
     this.home=this.home.bind(this);
     this.category=this.category.bind(this);
+    this.loginform=this.loginform.bind(this);
   }
 
   //Gets the keyword from the textfield
@@ -56,7 +59,8 @@ class App extends Component {
   //emdb button returns to homepage
   home(){
     this.setState({
-      listorslideshow:false
+      listorslideshow:false,
+      loginform:false
     })
   }
 
@@ -64,6 +68,13 @@ class App extends Component {
   category(event){
     this.setState({
       category:event.target.value
+    })
+  }
+
+  //sets the state to display the login form
+  loginform(){
+    this.setState({
+      loginform:true
     })
   }
 
@@ -82,8 +93,10 @@ class App extends Component {
               <option value='person'>Cast and Crew</option>
             </select>
           </div>
+          <button className="Loginbutton" onClick={this.loginform}>Log In</button>
         </div>
         {this.state.listorslideshow ? <MovieList result = {this.state.results} /> : <Slideshow />}
+        {this.state.loginform ? <Loginpage /> : <Slideshow />}
       </div>
     )
 
