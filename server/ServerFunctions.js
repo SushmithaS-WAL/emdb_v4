@@ -80,7 +80,7 @@ loginHandler = (req,res) => {
     res.clearCookie('token');
     console.log("Cleared previous cookie");
     res.cookie('token',token);
-    res.send("success");
+    res.send("Logged In Successfully");
 }
 
 //function to encrypt password and register the user
@@ -107,8 +107,34 @@ registerHandler = (req,res) => {
     res.send('success');
 }
 
+//function to fetch more movie details
+moremovieinfo = (req,res) =>{
+    var id = req.body.movieid;
+    movie.movie.find({id:id})
+    .then((obj)=>{
+        if(obj.length == 0)
+        {
+            axios({
+                method:'get',
+                url:`https://api.themoviedb.org/3/movie/${id}?api_key=618beb7230424a9d83ef94b33f200275&append_to_response=credits`
+            })
+            .then((apiobj)=>{
+                res.send([apiobj.data])
+            })
+            .catch((error)=>{
+                console.log('Could not connect to the server');
+            })
+        }
+        else {
+            res.send(obj);
+        }
+    })
+
+}
+
 module.exports = {
     searchHandler,
     loginHandler,
-    registerHandler
+    registerHandler,
+    moremovieinfo
 }

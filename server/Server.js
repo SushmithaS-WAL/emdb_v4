@@ -25,6 +25,9 @@ app.post('/login',passport.passport.authenticate("local", {session: false}), ser
 //get request at register
 app.post('/register',serverfunctions.registerHandler);
 
+//get request at moviedetails
+app.post('/moviedetails',serverfunctions.moremovieinfo);
+
 //server listening at PORT 3001
 app.listen(3001,()=>{
     console.log('Started listening at PORT: 3001');

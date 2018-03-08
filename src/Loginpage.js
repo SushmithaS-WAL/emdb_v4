@@ -54,15 +54,13 @@ class Loginpage extends Component {
                     button: "Enjoy"
                   })
             }
-            else{
-                swal({
-                    title: "Warning",
-                    text: "Invalid Credentials",
-                    icon: "warning"
-                  })
-            }
         })
         .catch((error)=>{
+            swal({
+                title: "Warning",
+                text: "Invalid Credentials",
+                icon: "warning"
+              });
             console.log(error);
         })
     }
@@ -98,4 +96,4 @@ class Loginpage extends Component {
     }
 }
 
-export default Loginpage
+export default Loginpage;

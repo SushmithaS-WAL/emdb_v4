@@ -4,6 +4,7 @@ import axios from 'axios';
 import swal from 'sweetalert'
 import Slideshow from './slideshow';
 import MovieList from './MovieList';
+// import MovieList from './movielisttest';
 import Loginpage from './Loginpage';
 
 class App extends Component {
