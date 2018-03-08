@@ -49,7 +49,8 @@ class Signuppage extends Component {
                 username:this.state.username,
                 password:this.state.password,
                 authorization:this.state.admin
-            }
+            },
+            withCredentials:true
         })
         .then((obj)=>{
             swal({
