@@ -17,6 +17,9 @@ app.use(cors({
 //get request at show
 app.post('/show',serverfunctions.searchHandler);
 
+//get request at login
+app.post('/login',serverfunctions.loginHandler);
+
 //server listening at PORT 3001
 app.listen(3001,()=>{
     console.log('Started listening at PORT: 3001');

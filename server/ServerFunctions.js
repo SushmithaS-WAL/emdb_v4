@@ -62,6 +62,19 @@ searchHandler = (req, res) => {
     }
 }
 
+//Login verification function
+loginHandler = (req,res) => {
+    username = req.body.username;
+    password = req.body.password;
+    if(username === "hello" && password === "hello"){
+        res.send('success')
+    }
+    else{
+        res.send('invalid')
+    }
+}
+
 module.exports = {
-    searchHandler
+    searchHandler,
+    loginHandler
 }
