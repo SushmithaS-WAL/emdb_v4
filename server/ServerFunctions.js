@@ -3,6 +3,7 @@ const axios = require('axios');
 const argon2 = require('argon2');
 const user = require('../models/User');
 const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 
 //search function
 searchHandler = (req, res) => {
@@ -65,7 +66,7 @@ searchHandler = (req, res) => {
     }
 }
 
-//Login to provide token to the user
+//function to provide token to the user
 loginHandler = (req,res) => {
     username = req.body.username;
     var token = jwt.sign({username},'BLACKPANTHER');
@@ -79,7 +80,7 @@ loginHandler = (req,res) => {
     res.clearCookie('token');
     console.log("Cleared previous cookie");
     res.cookie('token',token);
-    res.send("Logged In Successfully");
+    res.send("success");
 }
 
 //function to encrypt password and register the user

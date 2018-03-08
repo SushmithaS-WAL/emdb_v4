@@ -54,7 +54,7 @@ class Loginpage extends Component {
                     button: "Enjoy"
                   })
             }
-            else if(obj.data === 'invalid'){
+            else{
                 swal({
                     title: "Warning",
                     text: "Invalid Credentials",
