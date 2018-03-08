@@ -34,7 +34,7 @@ class Loginpage extends Component {
         })
     }
 
-    //function to verify the login
+    //function to send the credentials to server for verification
     loginfunction(){
         axios({
             method:'post',
@@ -42,7 +42,8 @@ class Loginpage extends Component {
             data:{
                 username:this.state.username,
                 password:this.state.password
-            }
+            },
+            withCredentials:true
         })
         .then((obj)=>{
             if(obj.data === 'success'){

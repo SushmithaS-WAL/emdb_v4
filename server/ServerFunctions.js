@@ -1,7 +1,8 @@
 const movie = require('../models/Movies');
 const axios = require('axios');
 const argon2 = require('argon2');
-const user = require('../models/User')
+const user = require('../models/User');
+const cookieParser = require('cookie-parser');
 
 //search function
 searchHandler = (req, res) => {
@@ -64,16 +65,21 @@ searchHandler = (req, res) => {
     }
 }
 
-//Login verification function
+//Login to provide token to the user
 loginHandler = (req,res) => {
     username = req.body.username;
-    password = req.body.password;
-    if(username === "hello" && password === "hello"){
-        res.send('success')
-    }
-    else{
-        res.send('invalid')
-    }
+    var token = jwt.sign({username},'BLACKPANTHER');
+    user.user.findOneAndUpdate({username:username},{token:token})
+    .then((obj)=>{
+        console.log("Added Token");
+    })
+    .catch((error)=>{
+        console.log(error);
+    })
+    res.clearCookie('token');
+    console.log("Cleared previous cookie");
+    res.cookie('token',token);
+    res.send("Logged In Successfully");
 }
 
 //function to encrypt password and register the user
