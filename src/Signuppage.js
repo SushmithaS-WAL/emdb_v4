@@ -2,9 +2,42 @@ import React, { Component } from 'react';
 import './App.css';
 import bootstrap from 'bootstrap';
 import axios from 'axios';
-import swal from 'sweetalert';
 
 class Signuppage extends Component {
+
+    constructor(props){
+        super(props);
+        this.state={
+            username:'',
+            password:'',
+            admin:false
+        }
+        this.makeadmin=this.makeadmin.bind(this);
+        this.getusername=this.getusername.bind(this);
+        this.getpassword=this.getpassword.bind(this);
+    }
+
+    //function to make the user admin
+    makeadmin(){
+        this.setState({
+            admin:!this.state.admin
+        })
+    }
+
+    //function to get username
+    getusername(event){
+        this.setState({
+            username:event.target.value
+        })
+    }
+
+    //function to get password
+    getpassword(event){
+        this.setState({
+            password:event.target.value
+        })
+    }
+
     render(){
         return(
             <div className="Slideshow">
@@ -13,9 +46,13 @@ class Signuppage extends Component {
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
             </header>
             <div className="Signupbackground">
-                <input type="text" placeholder="Username" className="Username"></input>
-                <input type="password" placeholder="Password" className="Password"></input>
-                <button className="Loginformbutton">SIGN UP</button>
+                <input type="text" placeholder="Username" className="Username" onChange={this.getusername} value={this.state.username}></input>
+                <input type="password" placeholder="Password" className="Password" onChange={this.getpassword} value={this.state.password}></input>
+                <div className="Signupformcheckboxcontent">
+                    <input type="checkbox" onClick={this.makeadmin} className="Signupformcheckbox"></input>
+                    <label>I want to be an Editor</label>
+                </div>
+                <button className="Signupformbutton">SIGN UP</button>
             </div>
             </div>
         )
