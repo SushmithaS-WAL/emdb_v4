@@ -143,7 +143,7 @@ moremovieinfo = (req,res) =>{
             })
             .then((apiobj)=>{
                 res.send([apiobj.data])
-                user.user.findOneAndUpdate({id:id},{"$set":{budget:apiobj.data.budget,production_companies:apiobj.data.production_companies,revenue:apiobj.data.revenue,credits:apiobj.data.credits}})
+                movie.movie.findOneAndUpdate({id:id},{"$set":{budget:apiobj.data.budget,production_companies:apiobj.data.production_companies,revenue:apiobj.data.revenue,credits:apiobj.data.credits}})
                 .then((obj)=>{
                     console.log('updated the movie table');
                 })

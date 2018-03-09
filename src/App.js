@@ -73,7 +73,8 @@ class App extends Component {
   home(){
     this.setState({
       listorslideshow:false,
-      loginform:false
+      loginform:false,
+      actor:false
     })
   }
 
@@ -109,7 +110,7 @@ class App extends Component {
           <button className="Loginbutton" onClick={this.loginform}>Log In</button>
         </div>
         {this.state.listorslideshow ? <MovieList result = {this.state.results} /> : <Slideshow />}
-        {this.state.actor ? <Actorlist result = {this.state.results} /> : <Slideshow />}
+        {this.state.actor ? <Actorlist result = {this.state.results} /> : null}
         {this.state.loginform ? <Loginpage /> : null}
       </div>
     )
