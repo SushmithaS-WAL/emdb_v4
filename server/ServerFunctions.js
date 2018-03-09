@@ -185,10 +185,17 @@ addreview = (req,res) => {
     })
 }
 
+//function to logout the user
+logoutHandler = (req,res) => {
+    res.clearCookie('token');
+    res.send('success');
+}
+
 module.exports = {
     searchHandler,
     loginHandler,
     registerHandler,
     moremovieinfo,
-    addreview
+    addreview,
+    logoutHandler
 }

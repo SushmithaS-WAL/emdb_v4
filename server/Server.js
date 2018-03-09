@@ -38,7 +38,7 @@ app.post('/moviedetails',serverfunctions.moremovieinfo);
 app.post('/userreview',serverfunctions.addreview);
 
 //get request at logout
-// app.get('/logout',serverfunctions.logoutHandler);
+app.post('/logout',serverfunctions.logoutHandler);
 
 //server listening at PORT 3001
 app.listen(3001,()=>{

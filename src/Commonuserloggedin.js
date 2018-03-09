@@ -4,8 +4,8 @@ import axios from 'axios';
 import swal from 'sweetalert'
 import Slideshow from './slideshow';
 import UserMovieList from './common-user-logged-in-movie-list';
-import Actorlist from './Actorlist'
-import Loginpage from './Loginpage';
+import Actorlist from './Actorlist';
+// import Loginpage from './Loginpage';
 
 class Commonuserloggedin extends Component {
 
@@ -23,6 +23,7 @@ class Commonuserloggedin extends Component {
     this.search=this.search.bind(this);
     this.home=this.home.bind(this);
     this.category=this.category.bind(this);
+    this.logout=this.logout.bind(this);
   }
 
   //Gets the keyword from the textfield
@@ -85,7 +86,23 @@ class Commonuserloggedin extends Component {
 
   //sets the state to display the login form
   logout(){
-
+    axios({
+      method:'post',
+      url:'http://localhost:3001/logout',
+      withCredentials:true
+    })
+    .then((obj)=>{
+      swal({
+        title: "Success",
+        text: "You've been logged out",
+        icon: "success",
+        button: "Bye"
+      });
+      window.location.reload()
+    })
+    .catch((error)=>{
+      console.log('Could not logout');
+    })
   }
 
   render() {
