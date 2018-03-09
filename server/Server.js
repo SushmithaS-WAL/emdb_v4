@@ -5,7 +5,13 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const serverfunctions = require('./ServerFunctions');
 const passport = require('../server/passport/passport');
+const cookieParser = require('cookie-parser');
 
+//Passport initialization
+app.use(passport.passport.initialize());
+
+//Cookie middleware
+app.use(cookieParser());
 
 //Body parser middleware
 app.use(bodyParser.json());
@@ -27,6 +33,9 @@ app.post('/register',serverfunctions.registerHandler);
 
 //get request at moviedetails
 app.post('/moviedetails',serverfunctions.moremovieinfo);
+
+//get request at userreview
+app.post('/userreview',serverfunctions.addreview);
 
 //server listening at PORT 3001
 app.listen(3001,()=>{

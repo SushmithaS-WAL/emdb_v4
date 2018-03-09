@@ -69,7 +69,7 @@ class UserMovielist extends Component {
                                         <p className="searchresult">Rating: </p><label className="searchcontent">{element.vote_average}</label>
                                         <p className="searchresult">Language: </p><label className="searchcontent">{element.original_language}</label>
                                         <p className="searchresult">Overview: </p><label className="searchcontent">{element.overview}</label>
-                                        <p className="searchresult">Release Date: </p><label className="searchcontent">{element.release_date.split('T00:00:00.000Z')}</label>
+                                        <p className="searchresult">Release Date: </p><label className="searchcontent">{element.release_date}</label>
                                         <br />
                                         <button id={element.id} className="searchresult-read-more" onClick={this.moreDetails}>Read More</button>
                                         </div>

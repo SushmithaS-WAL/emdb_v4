@@ -5,7 +5,7 @@ import bootstrap from 'bootstrap';
 
 class Moviedetail extends Component {
 
-
+//.split('T00:00:00.000Z')
 
     render(){
         var Moviedetail=(
@@ -30,7 +30,8 @@ class Moviedetail extends Component {
                         <p>Overview: {element.overview}</p>
                         </div>
                         <div className="Moviefulldetail-releasedate">
-                        <p>Release Date: {element.release_date.split('T00:00:00.000Z')}</p>
+                        <p>Release Date: {element.release_date}</p>
+
                         </div>
                         <div className="Moviefulldetail-budget">
                         <p>Budget: {element.budget}</p>

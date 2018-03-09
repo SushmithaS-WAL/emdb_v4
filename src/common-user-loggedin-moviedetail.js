@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import bootstrap from 'bootstrap';
+import swal from 'sweetalert';
 
 class UserMoviedetail extends Component {
 
@@ -10,7 +11,8 @@ class UserMoviedetail extends Component {
         this.state={
             review:'',
             watchlist:false,
-            favourites:false
+            favourites:false,
+            title:''
         }
         this.getreview=this.getreview.bind(this);
         this.watchlist=this.watchlist.bind(this);
@@ -21,7 +23,8 @@ class UserMoviedetail extends Component {
     //function to get review
     getreview(event){
         this.setState({
-            review:event.target.value
+            review:event.target.value,
+            title:event.target.id
         })
     }
 
@@ -47,9 +50,18 @@ class UserMoviedetail extends Component {
             data:{
                 review:this.state.review,
                 watchlist:this.state.watchlist,
-                favourites:this.state.favourites
+                favourites:this.state.favourites,
+                title:this.state.title
             },
             withCredentials:true
+        })
+        .then((obj)=>{
+            swal({
+                title: "Success",
+                text: "Review has been added",
+                icon: "success",
+                button: "Good One"
+              })
         })
     }
 
@@ -90,7 +102,7 @@ class UserMoviedetail extends Component {
                         <p>Overview: {element.overview}</p>
                         </div>
                         <div className="Moviefulldetail-releasedate">
-                        <p>Release Date: {element.release_date.split('T00:00:00.000Z')}</p>
+                        <p>Release Date: {element.release_date}</p>
                         </div>
                         <div className="Moviefulldetail-budget">
                         <p>Budget: {element.budget}</p>
@@ -113,8 +125,8 @@ class UserMoviedetail extends Component {
                             })
                         }
                         </div>
-                        <div className="Moviefulldetail-review" onChange={this.getreview} value={this.state.review}>
-                            <textarea rows="5" cols="40">
+                        <div className="Moviefulldetail-review">
+                            <textarea id={element.id} rows="5" cols="40" onChange={this.getreview} value={this.state.review}>
                             </textarea>
                         </div>
                         </div>

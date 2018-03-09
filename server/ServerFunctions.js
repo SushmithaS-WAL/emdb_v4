@@ -5,6 +5,7 @@ const argon2 = require('argon2');
 const user = require('../models/User');
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
+const userdata = require('../models/UserData')
 
 //search function
 searchHandler = (req, res) => {
@@ -135,7 +136,7 @@ moremovieinfo = (req,res) =>{
     id = req.body.movieid;
     movie.movie.find({id:id})
     .then((obj)=>{
-        if(obj.budget === undefined)
+        if(obj.budget == '')
         {
             axios({
                 method:'get',
@@ -162,9 +163,29 @@ moremovieinfo = (req,res) =>{
 
 }
 
+//function to add user review
+addreview = (req,res) => {
+   var title = req.body.title;
+    var review = req.body.review;
+    var watchlist = req.body.watchlist;
+    var favourites = req.body.favourites;
+    var token = req.cookies.token;
+    var decoded = jwt.verify(token,'BLACKPANTHER');
+    var username = decoded.username;
+
+    movie.movie.find({id:title})
+    .then((obj)=>{
+        userdata.userdata.create({username:username,id:title,title:obj[0].title,review:review,favourites:favourites,watchlist:watchlist})
+        .then((obj)=>{
+            res.send('Added Review')
+        })
+    })
+}
+
 module.exports = {
     searchHandler,
     loginHandler,
     registerHandler,
-    moremovieinfo
+    moremovieinfo,
+    addreview
 }
