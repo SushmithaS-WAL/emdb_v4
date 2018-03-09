@@ -3,7 +3,7 @@ import './App.css';
 import axios from 'axios';
 import swal from 'sweetalert'
 import Slideshow from './slideshow';
-import MovieList from './MovieList';
+import UserMovieList from './common-user-logged-in-movie-list';
 import Actorlist from './Actorlist'
 import Loginpage from './Loginpage';
 
@@ -113,7 +113,7 @@ class Commonuserloggedin extends Component {
           </select>
           <button className="Userlogoutbutton" onClick={this.loginform}>Logout</button>
         </div>
-        {this.state.listorslideshow ? <MovieList result = {this.state.results} /> : <Slideshow />}
+        {this.state.listorslideshow ? <UserMovieList result = {this.state.results} /> : null}
         {this.state.actor ? <Actorlist result = {this.state.results} /> : null}
         {this.state.loginform ? <Loginpage /> : null}
       </div>
