@@ -1,4 +1,5 @@
 const movie = require('../models/Movies');
+const person = require('../models/Person');
 const axios = require('axios');
 const argon2 = require('argon2');
 const user = require('../models/User');
@@ -22,6 +23,19 @@ searchHandler = (req, res) => {
                     })
                     .then((apiobj) => {
                         res.send(apiobj.data.results);
+                        //adding it to the database
+                        apiobj.data.results.map((element,index)=>{
+                            movie.movie.create({
+                                id:element.id,
+                                vote_count:element.vote_count,
+                                vote_average:element.vote_average,
+                                title:element.title,
+                                poster_path:element.poster_path,
+                                original_language:element.original_language,
+                                overview:element.overview,
+                                release_date:element.release_date
+                        })
+                        })
                     })
                     .catch((error) => {
                         console.log('Could not connect using the api');
@@ -50,6 +64,15 @@ searchHandler = (req, res) => {
                         //if it finds using tmdb api
                         .then((apiobj) => {
                             res.send(apiobj.data.results);
+                             //adding it to the database
+                            apiobj.data.results.map((element,index)=>{
+                                person.person.create({
+                                    popularity:element.popularity,
+                                    profile_path:element.profile_path,
+                                    name:element.name,
+                                    known_for:element.known_for
+                            })
+                            })
                         })
                         .catch((error) => {
                             console.log('Could not connect using the api');
@@ -109,10 +132,10 @@ registerHandler = (req,res) => {
 
 //function to fetch more movie details
 moremovieinfo = (req,res) =>{
-    var id = req.body.movieid;
+    id = req.body.movieid;
     movie.movie.find({id:id})
     .then((obj)=>{
-        if(obj.length == 0)
+        if(obj.budget === undefined)
         {
             axios({
                 method:'get',
@@ -120,6 +143,13 @@ moremovieinfo = (req,res) =>{
             })
             .then((apiobj)=>{
                 res.send([apiobj.data])
+                user.user.findOneAndUpdate({id:id},{"$set":{budget:apiobj.data.budget,production_companies:apiobj.data.production_companies,revenue:apiobj.data.revenue,credits:apiobj.data.credits}})
+                .then((obj)=>{
+                    console.log('updated the movie table');
+                })
+                .catch((error)=>{
+                    console.log('Could not connect to the server');
+                })
             })
             .catch((error)=>{
                 console.log('Could not connect to the server');

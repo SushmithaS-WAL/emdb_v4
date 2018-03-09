@@ -4,7 +4,7 @@ import axios from 'axios';
 import swal from 'sweetalert'
 import Slideshow from './slideshow';
 import MovieList from './MovieList';
-// import MovieList from './movielisttest';
+import Actorlist from './Actorlist'
 import Loginpage from './Loginpage';
 
 class App extends Component {
@@ -16,6 +16,7 @@ class App extends Component {
       keyword:'',
       results:[],
       listorslideshow:false,
+      actor:false,
       loginform:false
     }
     this.searchKeyword=this.searchKeyword.bind(this);
@@ -44,10 +45,20 @@ class App extends Component {
       withCredentials:true
     })
     .then((obj)=>{
-      this.setState({
-        results:obj.data,
-        listorslideshow:true
-      })
+      if(this.state.category === 'movie')
+      {
+        this.setState({
+          results:obj.data,
+          listorslideshow:true
+        })
+      }
+      else if(this.state.category === 'person')
+      {
+        this.setState({
+          results:obj.data,
+          actor:true
+        })
+      }
     })
     .catch((error)=>{
       swal({
@@ -98,6 +109,7 @@ class App extends Component {
           <button className="Loginbutton" onClick={this.loginform}>Log In</button>
         </div>
         {this.state.listorslideshow ? <MovieList result = {this.state.results} /> : <Slideshow />}
+        {this.state.actor ? <Actorlist result = {this.state.results} /> : <Slideshow />}
         {this.state.loginform ? <Loginpage /> : null}
       </div>
     )
