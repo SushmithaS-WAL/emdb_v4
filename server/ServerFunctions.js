@@ -103,7 +103,7 @@ loginHandler = (req,res) => {
     res.clearCookie('token');
     console.log("Cleared previous cookie");
     res.cookie('token',token);
-    res.send("Logged In Successfully");
+    res.send("success");
 }
 
 //function to encrypt password and register the user

@@ -53,12 +53,14 @@ class Signuppage extends Component {
             withCredentials:true
         })
         .then((obj)=>{
-            swal({
-                title: "Success",
-                text: "You have been registered",
-                icon: "success",
-                button: "Enjoy"
-              })
+            if(obj.data === 'success'){
+                swal({
+                    title: "Success",
+                    text: "You have been registered",
+                    icon: "success",
+                    button: "Enjoy"
+                  })
+            }
         })
         .catch((error)=>{
             swal({
