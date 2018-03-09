@@ -96,7 +96,10 @@ loginHandler = (req,res) => {
     var token = jwt.sign({username},'BLACKPANTHER');
     user.user.findOneAndUpdate({username:username},{token:token})
     .then((obj)=>{
-        console.log("Added Token");
+        if(obj.authorization === 'common'){
+            console.log('Added Token');
+        }
+        // else if (obj.authorization === '')
     })
     .catch((error)=>{
         console.log(error);
@@ -136,7 +139,7 @@ moremovieinfo = (req,res) =>{
     id = req.body.movieid;
     movie.movie.find({id:id})
     .then((obj)=>{
-        if(obj.budget == '')
+        if(obj.budget === undefined)
         {
             axios({
                 method:'get',

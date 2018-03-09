@@ -17,13 +17,12 @@ class Commonuserloggedin extends Component {
       results:[],
       listorslideshow:false,
       actor:false,
-      loginform:false
+      // loginform:false
     }
     this.searchKeyword=this.searchKeyword.bind(this);
     this.search=this.search.bind(this);
     this.home=this.home.bind(this);
     this.category=this.category.bind(this);
-    this.loginform=this.loginform.bind(this);
   }
 
   //Gets the keyword from the textfield
@@ -73,7 +72,6 @@ class Commonuserloggedin extends Component {
   home(){
     this.setState({
       listorslideshow:false,
-      loginform:false,
       actor:false
     })
   }
@@ -86,10 +84,8 @@ class Commonuserloggedin extends Component {
   }
 
   //sets the state to display the login form
-  loginform(){
-    this.setState({
-      loginform:true
-    })
+  logout(){
+
   }
 
   render() {
@@ -111,11 +107,10 @@ class Commonuserloggedin extends Component {
               <option value='watchlist'>Show Watchlist</option>
               <option value='favourites'>Show Favourites</option>
           </select>
-          <button className="Userlogoutbutton" onClick={this.loginform}>Logout</button>
+          <button className="Userlogoutbutton" onClick={this.logout}>Logout</button>
         </div>
         {this.state.listorslideshow ? <UserMovieList result = {this.state.results} /> : null}
         {this.state.actor ? <Actorlist result = {this.state.results} /> : null}
-        {this.state.loginform ? <Loginpage /> : null}
       </div>
     )
 
