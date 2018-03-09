@@ -3,7 +3,8 @@ import './App.css';
 import bootstrap from 'bootstrap';
 import axios from 'axios';
 import swal from 'sweetalert';
-import Signuppage from './Signuppage'
+import Signuppage from './Signuppage';
+import Commonuserloggedin from './Commonuserloggedin'
 
 class Loginpage extends Component {
 
@@ -12,7 +13,9 @@ class Loginpage extends Component {
         this.state={
             username:'',
             password:'',
-            signupform:false
+            signupform:false,
+            commonuser:false,
+            login:true
         }
         this.getusername=this.getusername.bind(this);
         this.getpassword=this.getpassword.bind(this);
@@ -46,6 +49,10 @@ class Loginpage extends Component {
             withCredentials:true
         })
         .then((obj)=>{
+            this.setState({
+                commonuser:true,
+                login:false
+            })
             if(obj.data === 'success'){
                 swal({
                     title: "Success",
@@ -91,7 +98,12 @@ class Loginpage extends Component {
         )
 
         return(
-            this.state.signupform ? <Signuppage /> : loginform
+            <div>
+            {this.state.signupform ? <Signuppage /> : null}
+            {this.state.login ? loginform : null}
+            {this.state.commonuser ? <Commonuserloggedin /> : null}
+            </div>
+            
         )
     }
 }

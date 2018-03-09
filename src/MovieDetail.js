@@ -28,8 +28,6 @@ class Moviedetail extends Component {
                         </div>
                         <p className="searchresult">Overview: </p><label className="searchcontent">{element.overview}</label>
                         <p className="searchresult">Release Date: </p><label className="searchcontent">{element.release_date.split('T00:00:00.000Z')}</label>
-                        <br />
-                        <button id={element.id} className="searchresult-read-more" onClick={this.moreDetails}>Read More</button>
                         </div>
                     )
                 })}

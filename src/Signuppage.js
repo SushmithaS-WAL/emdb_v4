@@ -3,6 +3,7 @@ import './App.css';
 import bootstrap from 'bootstrap';
 import axios from 'axios';
 import swal from 'sweetalert';
+import Loginpage from './Loginpage';
 
 class Signuppage extends Component {
 
@@ -11,12 +12,15 @@ class Signuppage extends Component {
         this.state={
             username:'',
             password:'',
-            admin:false
+            admin:false,
+            login:false
         }
         this.makeadmin=this.makeadmin.bind(this);
         this.getusername=this.getusername.bind(this);
         this.getpassword=this.getpassword.bind(this);
         this.signup=this.signup.bind(this);
+        this.renderlogin=this.renderlogin.bind(this);
+        this.onClick=this.onClick.bind(this);
     }
 
     //function to make the user admin
@@ -71,8 +75,21 @@ class Signuppage extends Component {
         })
     }
 
+    //function to render the login page
+    renderlogin(){
+        this.setState({
+            login:true
+        })
+    }
+
+    //function to perform the signup and render the login page
+    onClick(event){
+        this.signup();
+        this.renderlogin();
+    }
+
     render(){
-        return(
+        var signuppage=(
             <div className="Slideshow">
             <header className="App-header">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
@@ -85,10 +102,12 @@ class Signuppage extends Component {
                     <input type="checkbox" onClick={this.makeadmin} className="Signupformcheckbox"></input>
                     <label>I want to be an Editor</label>
                 </div>
-                <button className="Signupformbutton" onClick={this.signup}>SIGN UP</button>
+                <button className="Signupformbutton" onClick={this.onClick}>SIGN UP</button>
             </div>
             </div>
         )
+
+        return(this.state.login ? <Loginpage /> : signuppage)
     }
 }
 
