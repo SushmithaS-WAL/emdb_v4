@@ -26,8 +26,33 @@ class Moviedetail extends Component {
                         <div className="Moviefulldetail-language">
                         <p className="searchresult">Language:{element.original_language}</p>
                         </div>
-                        <p className="searchresult">Overview: </p><label className="searchcontent">{element.overview}</label>
-                        <p className="searchresult">Release Date: </p><label className="searchcontent">{element.release_date.split('T00:00:00.000Z')}</label>
+                        <div className="Moviefulldetail-overview">
+                        <p>Overview: {element.overview}</p>
+                        </div>
+                        <div className="Moviefulldetail-releasedate">
+                        <p>Release Date: {element.release_date.split('T00:00:00.000Z')}</p>
+                        </div>
+                        <div className="Moviefulldetail-budget">
+                        <p>Budget: {element.budget}</p>
+                        </div>
+                        <div className="Moviefulldetail-revenue">
+                        <p>Revenue: {element.revenue}</p>
+                        </div >
+                        <div className="Moviefulldetail-cast-title">
+                        <p>Cast</p>
+                        </div >
+                        <div className="Moviefulldetail-cast">
+                        {
+                            element.credits.cast.map((actorlist)=>{
+                                return(
+                                    <div key={actorlist.cast_id}>
+                                    <span className="first-label"><label>Character: {actorlist.character}</label></span>
+                                    <span className="second-label"><label>Actor: {actorlist.name}</label></span>
+                                    </div>
+                                )
+                            })
+                        }
+                        </div>
                         </div>
                     )
                 })}
