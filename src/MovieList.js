@@ -11,7 +11,8 @@ class Movielist extends Component {
         super(props);
         this.state = {
             details:[],
-            detail_screen:false
+            detail_screen:false,
+            // list_screen:true
         }
         this.moreDetails=this.moreDetails.bind(this);
     }
@@ -29,7 +30,8 @@ class Movielist extends Component {
         .then((obj)=>{
             this.setState({
                 details:obj.data,
-                detail_screen:true
+                detail_screen:true,
+                list_screen:false
             })
         })
         .catch((error)=>{
@@ -82,7 +84,13 @@ class Movielist extends Component {
                   </div> 
                 )
 
-                return(this.state.detail_screen ? <Moviedetail moviedetails = {this.state.details}/> : movie_detail_list);
+                return(
+                    // <div>
+                    //     {this.state.list_screen ? movie_detail_list : null}
+                    //     {this.detail_screen ? <Moviedetail moviedetails = {this.state.details}/> : null}
+                    // </div>
+                    this.state.detail_screen ? <Moviedetail moviedetails = {this.state.details}/> : movie_detail_list
+                );
     }
 }
 

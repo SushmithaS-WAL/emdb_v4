@@ -17,7 +17,8 @@ class App extends Component {
       results:[],
       listorslideshow:false,
       actor:false,
-      loginform:false
+      loginform:false,
+      slideshow:true
     }
     this.searchKeyword=this.searchKeyword.bind(this);
     this.search=this.search.bind(this);
@@ -45,19 +46,32 @@ class App extends Component {
       withCredentials:true
     })
     .then((obj)=>{
-      if(this.state.category === 'movie')
-      {
-        this.setState({
-          results:obj.data,
-          listorslideshow:true
-        })
+      if(obj.data === 'error'){
+        swal({
+          title: "Sorry",
+          text: "Could not find what you are searching for.",
+          icon: "warning",
+        });
       }
-      else if(this.state.category === 'person')
-      {
-        this.setState({
-          results:obj.data,
-          actor:true
-        })
+      else {
+        if(this.state.category === 'movie')
+        {
+          this.setState({
+            results:obj.data,
+            listorslideshow:true,
+            slideshow:false,
+            actor:false
+          })
+        }
+        else if(this.state.category === 'person')
+        {
+          this.setState({
+            results:obj.data,
+            actor:true,
+            slideshow:false,
+            listorslideshow:false
+          })
+        }
       }
     })
     .catch((error)=>{
@@ -74,7 +88,8 @@ class App extends Component {
     this.setState({
       listorslideshow:false,
       loginform:false,
-      actor:false
+      actor:false,
+      slideshow:true
     })
   }
 
@@ -109,7 +124,8 @@ class App extends Component {
           </div>
           <button className="Loginbutton" onClick={this.loginform}>Log In</button>
         </div>
-        {this.state.listorslideshow ? <MovieList result = {this.state.results} /> : <Slideshow />}
+        {this.state.slideshow ? <Slideshow /> : null}
+        {this.state.listorslideshow ? <MovieList result = {this.state.results} /> : null}
         {this.state.actor ? <Actorlist result = {this.state.results} /> : null}
         {this.state.loginform ? <Loginpage /> : null}
       </div>

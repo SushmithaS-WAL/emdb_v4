@@ -5,7 +5,7 @@ import bootstrap from 'bootstrap';
 
 class Moviedetail extends Component {
 
-//.split('T00:00:00.000Z')
+
 
     render(){
         var Moviedetail=(
