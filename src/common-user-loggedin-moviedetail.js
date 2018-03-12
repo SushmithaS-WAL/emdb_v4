@@ -76,6 +76,7 @@ class UserMoviedetail extends Component {
                 {this.props.moviedetails.map((element,index)=>{
                     return(
                         <div key={index}>
+                        <div className="whitener"></div>
                         <p className="Moviefulldetail-title">{element.title}</p>
                         <img className="Moviefulldetail-image" src={`https://image.tmdb.org/t/p/w154/${element.poster_path}`} alt="poster" />
                         <div className="Moviefulldetail-rating">

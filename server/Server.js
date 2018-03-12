@@ -41,7 +41,10 @@ app.post('/userreview',serverfunctions.addreview);
 app.post('/logout',serverfunctions.logoutHandler);
 
 //get request at sort
-app.post('/sort',serverfunctions.sortResults)
+app.post('/sort',serverfunctions.sortResults);
+
+
+app.post('/user-data-list',serverfunctions.userchoicelist);
 
 //server listening at PORT 3001
 app.listen(3001,()=>{

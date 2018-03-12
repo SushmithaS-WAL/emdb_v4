@@ -4,7 +4,7 @@ import axios from 'axios';
 import swal from 'sweetalert'
 import Slideshow from './slideshow';
 import UserMovieList from './common-user-logged-in-movie-lists';
-import Actorlist from './Actorlist'
+import Actorlist from './Actorlist';
 
 class Commonuserloggedin extends Component {
 
@@ -19,7 +19,9 @@ class Commonuserloggedin extends Component {
       slideshow:true,
       sort_toggle:{
         visibility:'hidden'
-      }
+      },
+      userlist:false,
+      userchoicelist:[]
     }
     this.searchKeyword=this.searchKeyword.bind(this);
     this.search=this.search.bind(this);
@@ -27,6 +29,7 @@ class Commonuserloggedin extends Component {
     this.category=this.category.bind(this);
     this.sort=this.sort.bind(this);
     this.logout=this.logout.bind(this);
+    this.user_data_list=this.user_data_list.bind(this);
   }
 
   //Gets the keyword from the textfield
@@ -95,6 +98,7 @@ class Commonuserloggedin extends Component {
     this.setState({
       listorslideshow:false,
       loginform:false,
+      userlist:false,
       actor:false,
       slideshow:true,
       sort_toggle:{
@@ -182,39 +186,79 @@ class Commonuserloggedin extends Component {
     })
   }
 
+  user_data_list(event){
+    axios({
+      method:'post',
+      url:'http://localhost:3001/user-data-list',
+      data:{
+        list:event.target.value
+      },
+      withCredentials:true
+    })
+    .then((obj)=>{
+      this.setState({
+        userlist:true,
+        listorslideshow:false,
+        slideshow:false,
+        actor:false,
+        userchoicelist:obj.data
+      })
+    })
+    .catch((error)=>{
+      console.log('error')
+    })
+  }
 
-  render() {
-    var homePage=(
-      <div className="Container">
-        <div className="Navbar">
-          <div className="Title" onClick={this.home}>
-            emdb
-          </div>
-          <div className="Searchbar">
-            <input className="Searchfield" type="text" placeholder="Search...." value={this.state.keyword} onChange={this.searchKeyword}></input>
-            <button className="Searchbutton" onClick={this.search}>Find</button>
-            <select className="Searchcategory" onChange={this.category}>
-              <option value='movie'>Movie</option>
-              <option value='person'>Cast and Crew</option>
-            </select>
-            <select style={this.state.sort_toggle} className="Searchsort" onChange={this.sort}>
-              <option value='highr'>Rating: High to Low</option>
-              <option value='lowr'>Rating: Low to High</option>
-              <option value='new'>Latest</option>
-              <option value='old'>Oldest</option>
-            </select>
-          </div>
-          <select className="userlists" onChange={this.category}>
-              <option value='watchlist'>Show Watchlist</option>
-              <option value='favourites'>Show Favourites</option>
-          </select>
-          <button className="Userlogoutbutton" onClick={this.logout}>Logout</button>
+render() {
+  var userchoice=(
+    <div className="Slideshow">
+      {
+        this.state.userchoicelist.map((element,index)=>{
+          return(
+            <div key={index}>
+            <li>{element.title}</li><button>Remove</button>
+            </div>
+          )
+        })
+      }
+    </div> 
+  )
+  
+  var homePage=(
+    <div className="Container">
+      <div className="Navbar">
+        <div className="Title" onClick={this.home}>
+          emdb
         </div>
-        {this.state.slideshow ? <Slideshow /> : null}
-        {this.state.listorslideshow ? <UserMovieList result = {this.state.results} /> : null}
-        {this.state.actor ? <Actorlist result = {this.state.results} /> : null}
+        <div className="Searchbar">
+          <input className="Searchfield" type="text" placeholder="Search...." value={this.state.keyword} onChange={this.searchKeyword}></input>
+          <button className="Searchbutton" onClick={this.search}>Find</button>
+          <select className="Searchcategory" onChange={this.category}>
+            <option value='movie'>Movie</option>
+            <option value='person'>Cast and Crew</option>
+          </select>
+          <select style={this.state.sort_toggle} className="Searchsort" onChange={this.sort}>
+            <option value='highr'>Rating: High to Low</option>
+            <option value='lowr'>Rating: Low to High</option>
+            <option value='new'>Latest</option>
+            <option value='old'>Oldest</option>
+          </select>
+        </div>
+        <select className="userlists" onChange={this.user_data_list}>
+            <option>User List</option>
+            <option value='watchlist'>Show Watchlist</option>
+            <option value='favourites'>Show Favourites</option>
+        </select>
+        <button className="Userlogoutbutton" onClick={this.logout}>Logout</button>
       </div>
-    )
+      {this.state.slideshow ? <Slideshow /> : null}
+      {this.state.listorslideshow ? <UserMovieList result = {this.state.results} /> : null}
+      {this.state.actor ? <Actorlist result = {this.state.results} /> : null}
+      {this.state.userlist ? userchoice : null}
+    </div>
+  )
+
+    
 
     return(
       homePage

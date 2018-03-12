@@ -251,6 +251,26 @@ sortResults = (req,res) => {
     }
 }
 
+//function to return the user watchlist or favourites
+userchoicelist = (req,res) => {
+    var choice = req.body.list;
+    var token = req.cookies.token;
+    var decoded = jwt.verify(token,'BLACKPANTHER');
+    var username = decoded.username;
+    if(choice === 'favourites'){
+        userdata.userdata.find({username:username,favourites:true}).select('title')
+        .then((obj)=>{
+            res.send(obj);
+        })
+    }
+    else if(choice === 'watchlist'){
+        userdata.userdata.find({username:username,watchlist:true})
+        .then((obj)=>{
+            res.send(obj);
+        })
+    }
+}
+
 module.exports = {
     searchHandler,
     loginHandler,
@@ -258,5 +278,6 @@ module.exports = {
     moremovieinfo,
     addreview,
     logoutHandler,
-    sortResults
+    sortResults,
+    userchoicelist
 }
