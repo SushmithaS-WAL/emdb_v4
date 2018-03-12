@@ -201,11 +201,62 @@ logoutHandler = (req,res) => {
     res.send('success');
 }
 
+//function to sort out the results
+sortResults = (req,res) => {
+    sortMethod = req.body.sortmethod;
+    keyword = req.body.keyword;
+    category = req.body.category;
+    if(category === 'movie'){
+        if(sortMethod === 'highr'){
+            movie.movie.find({ title: { '$regex': keyword, '$options': 'i' } }).sort({vote_average:-1})
+            .then((obj)=>{
+                res.send(obj);
+            })
+        }
+        else if(sortMethod === 'lowr'){
+            movie.movie.find({ title: { '$regex': keyword, '$options': 'i' } }).sort({vote_average:1})
+            .then((obj)=>{
+                res.send(obj);
+            })
+        }
+        else if(sortMethod === 'new'){
+            movie.movie.find({ title: { '$regex': keyword, '$options': 'i' } }).sort({release_date:-1})
+            .then((obj)=>{
+                res.send(obj);
+            })
+        }
+        else if(sortMethod === 'old'){
+            movie.movie.find({ title: { '$regex': keyword, '$options': 'i' } }).sort({release_date:1})
+            .then((obj)=>{
+                res.send(obj);
+            })
+        }
+    }
+    else if(category === 'person') {
+        if(sortMethod === 'highr'){
+            person.person.find({ name: { '$regex': keyword, '$options': 'i' } }).sort({popularity:-1})
+            .then((obj)=>{
+                res.send(obj);
+            })
+        }
+        else if(sortMethod === 'lowr'){
+            person.person.find({ name: { '$regex': keyword, '$options': 'i' } }).sort({popularity:1})
+            .then((obj)=>{
+                res.send(obj);
+            })
+        }
+        else if(sortMethod === 'new' || sortMethod === 'old'){
+            res.send('error')
+        }    
+    }
+}
+
 module.exports = {
     searchHandler,
     loginHandler,
     registerHandler,
     moremovieinfo,
     addreview,
-    logoutHandler
+    logoutHandler,
+    sortResults
 }

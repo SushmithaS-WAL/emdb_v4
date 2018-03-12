@@ -40,6 +40,9 @@ app.post('/userreview',serverfunctions.addreview);
 //get request at logout
 app.post('/logout',serverfunctions.logoutHandler);
 
+//get request at sort
+app.post('/sort',serverfunctions.sortResults)
+
 //server listening at PORT 3001
 app.listen(3001,()=>{
     console.log('Started listening at PORT: 3001');

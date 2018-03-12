@@ -25,6 +25,7 @@ class App extends Component {
     this.home=this.home.bind(this);
     this.category=this.category.bind(this);
     this.loginform=this.loginform.bind(this);
+    this.sort=this.sort.bind(this);
   }
 
   //Gets the keyword from the textfield
@@ -107,6 +108,57 @@ class App extends Component {
     })
   }
 
+  //function to sort the results
+  sort(event){
+    axios({
+      method:'post',
+      url:'http://localhost:3001/sort',
+      data:{
+        keyword:this.state.keyword,
+        sortmethod:event.target.value,
+        category:this.state.category
+      },
+      withCredentials:true
+    })
+    .then((obj)=>{
+      console.log(obj);
+      if(obj.data === 'error'){
+        swal({
+          title: "Sorry",
+          text: "Could not perforom the sorting method for Persons.",
+          icon: "warning",
+        });
+      }
+      else{
+        if(this.state.category === 'movie')
+        {
+          this.setState({
+            results:obj.data,
+            listorslideshow:true,
+            slideshow:false,
+            actor:false
+          })
+        }
+        else if(this.state.category === 'person')
+        {
+          this.setState({
+            results:obj.data,
+            actor:true,
+            slideshow:false,
+            listorslideshow:false
+          })
+        }
+      }
+    })
+    .catch((error)=>{
+      swal({
+        title: "Sorry",
+        text: "Could not connect to the server",
+        icon: "warning",
+      });
+    })
+  }
+
   render() {
     var homePage=(
       <div className="Container">
@@ -120,6 +172,12 @@ class App extends Component {
             <select className="Searchcategory" onChange={this.category}>
               <option value='movie'>Movie</option>
               <option value='person'>Cast and Crew</option>
+            </select>
+            <select className="Searchsort" onChange={this.sort}>
+              <option value='highr'>Rating: High to Low</option>
+              <option value='lowr'>Rating: Low to High</option>
+              <option value='new'>Latest</option>
+              <option value='old'>Oldest</option>
             </select>
           </div>
           <button className="Loginbutton" onClick={this.loginform}>Log In</button>

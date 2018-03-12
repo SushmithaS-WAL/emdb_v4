@@ -11,8 +11,8 @@ class Movielist extends Component {
         super(props);
         this.state = {
             details:[],
-            detail_screen:false,
-            // list_screen:true
+            list_screen:true,
+            detail_screen:false
         }
         this.moreDetails=this.moreDetails.bind(this);
     }
@@ -85,11 +85,11 @@ class Movielist extends Component {
                 )
 
                 return(
-                    // <div>
-                    //     {this.state.list_screen ? movie_detail_list : null}
-                    //     {this.detail_screen ? <Moviedetail moviedetails = {this.state.details}/> : null}
-                    // </div>
-                    this.state.detail_screen ? <Moviedetail moviedetails = {this.state.details}/> : movie_detail_list
+                    <div>
+                        {this.state.list_screen ? movie_detail_list : null}
+                        {this.state.detail_screen ? <Moviedetail moviedetails = {this.state.details}/> : null}
+                    </div>
+                    // this.state.detail_screen ? <Moviedetail moviedetails = {this.state.details}/> : movie_detail_list
                 );
     }
 }

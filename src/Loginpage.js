@@ -75,7 +75,8 @@ class Loginpage extends Component {
     //function to render the sign up form
     signupform(){
         this.setState({
-            signupform:true
+            signupform:true,
+            login: false
         })
     }
 
