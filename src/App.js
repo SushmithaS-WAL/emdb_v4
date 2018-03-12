@@ -18,7 +18,10 @@ class App extends Component {
       listorslideshow:false,
       actor:false,
       loginform:false,
-      slideshow:true
+      slideshow:true,
+      sort_toggle:{
+        visibility:'hidden'
+      }
     }
     this.searchKeyword=this.searchKeyword.bind(this);
     this.search=this.search.bind(this);
@@ -47,6 +50,11 @@ class App extends Component {
       withCredentials:true
     })
     .then((obj)=>{
+      this.setState({
+        sort_toggle:{
+          visibility:'visible'
+        }
+      })
       if(obj.data === 'error'){
         swal({
           title: "Sorry",
@@ -90,7 +98,10 @@ class App extends Component {
       listorslideshow:false,
       loginform:false,
       actor:false,
-      slideshow:true
+      slideshow:true,
+      sort_toggle:{
+        visibility:'hidden'
+      }
     })
   }
 
@@ -104,7 +115,13 @@ class App extends Component {
   //sets the state to display the login form
   loginform(){
     this.setState({
-      loginform:true
+      slideshow:true,
+      loginform:true,
+      listorslideshow:false,
+      actor:false,
+      sort_toggle:{
+        visibility:'hidden'
+      }
     })
   }
 
@@ -159,6 +176,7 @@ class App extends Component {
     })
   }
 
+
   render() {
     var homePage=(
       <div className="Container">
@@ -173,7 +191,7 @@ class App extends Component {
               <option value='movie'>Movie</option>
               <option value='person'>Cast and Crew</option>
             </select>
-            <select className="Searchsort" onChange={this.sort}>
+            <select style={this.state.sort_toggle} className="Searchsort" onChange={this.sort}>
               <option value='highr'>Rating: High to Low</option>
               <option value='lowr'>Rating: Low to High</option>
               <option value='new'>Latest</option>

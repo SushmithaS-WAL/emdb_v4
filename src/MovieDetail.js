@@ -3,9 +3,24 @@ import './App.css';
 import axios from 'axios';
 import bootstrap from 'bootstrap';
 
+// .split('T00:00:00.000Z')
+
 class Moviedetail extends Component {
 
-// .split('T00:00:00.000Z')
+    // constructor(props){
+    //     super(props);
+    //     this.state={
+    //         movie_detail:true
+    //     }
+    //     this.goBack=this.goBack.bind(this);
+    // }
+
+    //function to go back to the movie list component
+    // goBack(){
+    //     this.setState({
+    //         movie_detail:false
+    //     })
+    // }
 
     render(){
         var Moviedetail=(
@@ -14,6 +29,9 @@ class Moviedetail extends Component {
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
             </header>
+            {/* <div>
+                <button onClick={this.goBack}>Go Back</button>
+            </div> */}
             <div>
                 {this.props.moviedetails.map((element,index)=>{
                     return(
@@ -61,7 +79,10 @@ class Moviedetail extends Component {
             </div>
         )
 
-        return(Moviedetail);
+        return(
+            Moviedetail
+            // this.state.movie_detail ? Moviedetail : null
+        );
     }
 }
 

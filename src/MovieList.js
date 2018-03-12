@@ -89,7 +89,6 @@ class Movielist extends Component {
                         {this.state.list_screen ? movie_detail_list : null}
                         {this.state.detail_screen ? <Moviedetail moviedetails = {this.state.details}/> : null}
                     </div>
-                    // this.state.detail_screen ? <Moviedetail moviedetails = {this.state.details}/> : movie_detail_list
                 );
     }
 }
