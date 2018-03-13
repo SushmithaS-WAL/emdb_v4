@@ -484,6 +484,16 @@
   background-color: white;
 }
 
+.back-button {
+  position: absolute;
+  top:2%;
+  left:2%;
+  background-color: rgb(38, 37, 68);
+  color: rgb(141, 218, 166);
+  border:2px solid rgb(141, 218, 166);
+  border-radius:5px;
+}
+
 .Readreview {
   position: absolute;
   top:2%;

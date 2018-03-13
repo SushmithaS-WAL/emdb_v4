@@ -3,7 +3,7 @@ import './App.css';
 import axios from 'axios';
 import swal from 'sweetalert';
 import bootstrap from 'bootstrap';
-
+import Movielist from './MovieList';
 // .split('T00:00:00.000Z')
 
 class Moviedetail extends Component {
@@ -15,6 +15,12 @@ class Moviedetail extends Component {
             moviereview:false
         }
         this.getReview=this.getReview.bind(this);
+        this.goBack=this.goBack.bind(this);
+    }
+
+    //function to go backk to the movielist
+    goBack(){
+        this.props.backward();
     }
 
     //function to get the review
@@ -113,6 +119,9 @@ class Moviedetail extends Component {
                         </div>
                         <div>
                             <button id={element.id} className="Readreview" onClick={this.getReview}>Read Reviews</button>
+                        </div>
+                        <div>
+                            <button className="back-button" onClick={this.goBack}>Go Back</button>
                         </div>
                         </div>
                     )
