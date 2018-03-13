@@ -511,6 +511,11 @@
   opacity: 0.92; 
 }
 
+.separator {
+  color: rgb(141, 218, 166);
+  background-color: rgb(141, 218, 166);
+}
+
 .userlist-button {
   position: absolute;
   left:20%;

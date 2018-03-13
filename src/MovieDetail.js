@@ -57,8 +57,7 @@ class Moviedetail extends Component {
                     return(
                         <div>
                         <p>{element.review}</p>
-                        <br/>
-                        <p>------------------------------------------------------------------------------------------------------</p>
+                        <hr className="separator"></hr>
                         </div>
                     )
                 })
