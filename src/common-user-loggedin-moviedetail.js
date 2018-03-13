@@ -9,15 +9,48 @@ class UserMoviedetail extends Component {
     constructor(props){
         super(props);
         this.state={
+            reviews:[],
+            moviereview:false,
             review:'',
             watchlist:false,
             favourites:false,
             title:''
         }
+        this.getReviews=this.getReviews.bind(this);
         this.getreview=this.getreview.bind(this);
         this.watchlist=this.watchlist.bind(this);
         this.favourites=this.favourites.bind(this);
         this.submit=this.submit.bind(this);
+    }
+
+    getReviews(event){
+        axios({
+            method:'post',
+            url:'http://localhost:3001/get-review',
+            data:{
+                id:event.target.id
+            },
+            withCredentials:true
+        })
+        .then((obj)=>{
+            console.log(obj.data);
+            if(obj.data === 'No review'){
+                swal({
+                    title: "Sorry",
+                    text: "There's no Review",
+                    icon: "warning",
+                  });
+            }
+            else{
+                this.setState({
+                    reviews:obj.data,
+                    moviereview:true
+                })
+            }
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
     }
 
     //function to get review
@@ -66,6 +99,22 @@ class UserMoviedetail extends Component {
     }
 
     render(){
+
+        var movieReview=(
+            <div className="Review">
+            {
+                this.state.reviews.map((element,index)=>{
+                    return(
+                        <div>
+                        <p>{element.review}</p>
+                        <hr className="separator"></hr>
+                        </div>
+                    )
+                })
+            }
+            </div>
+        )
+
         var Moviedetail=(
             <div className="Moviefulldetail">
             <header className="App-header">
@@ -130,9 +179,15 @@ class UserMoviedetail extends Component {
                             <textarea id={element.id} rows="5" cols="40" onChange={this.getreview} value={this.state.review}>
                             </textarea>
                         </div>
+                        <div>
+                            <button id={element.id} className="Readreview" onClick={this.getReviews}>Read Reviews</button>
+                        </div>
                         </div>
                     )
                 })}
+            <div>
+                {this.state.moviereview ? movieReview : null}
+            </div>
             </div>
             </div>
         )
