@@ -29,7 +29,16 @@ class App extends Component {
     this.category=this.category.bind(this);
     this.loginform=this.loginform.bind(this);
     this.sort=this.sort.bind(this);
+    this.go=this.go.bind(this);
   }
+
+  //closes the loginform
+  go(){
+    this.setState({
+      loginform:false
+    })
+  }
+  
 
   //Gets the keyword from the textfield
   searchKeyword(event){
@@ -216,7 +225,7 @@ class App extends Component {
         {this.state.slideshow ? <Slideshow /> : null}
         {this.state.listorslideshow ? <MovieList result = {this.state.results} /> : null}
         {this.state.actor ? <Actorlist result = {this.state.results} /> : null}
-        {this.state.loginform ? <Loginpage /> : null}
+        {this.state.loginform ? <Loginpage closelogin={this.go} /> : null}
       </div>
     )
 
