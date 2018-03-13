@@ -21,6 +21,7 @@ class Loginpage extends Component {
         this.getpassword=this.getpassword.bind(this);
         this.loginfunction=this.loginfunction.bind(this);
         this.signupform=this.signupform.bind(this);
+        this.back=this.back.bind(this);
     }
 
     //function to get the username
@@ -80,6 +81,13 @@ class Loginpage extends Component {
         })
     }
 
+    back(){
+        this.setState({
+            login:true,
+            signupform:false
+        })
+    }
+
     render(){
         var loginform=(
             <div className="Slideshow">
@@ -100,7 +108,7 @@ class Loginpage extends Component {
 
         return(
             <div>
-            {this.state.signupform ? <Signuppage /> : null}
+            {this.state.signupform ? <Signuppage backward={this.back} /> : null}
             {this.state.login ? loginform : null}
             {this.state.commonuser ? <Commonuserloggedin /> : null}
             </div>

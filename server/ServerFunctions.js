@@ -98,6 +98,9 @@ searchHandler = (req, res) => {
                 console.log('Could not connect using the database');
             })
     }
+    else if(category === ''){
+        res.send('category-error')
+    }
 }
 
 //function to provide token to the user

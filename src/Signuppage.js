@@ -19,8 +19,6 @@ class Signuppage extends Component {
         this.getusername=this.getusername.bind(this);
         this.getpassword=this.getpassword.bind(this);
         this.signup=this.signup.bind(this);
-        this.renderlogin=this.renderlogin.bind(this);
-        this.onClick=this.onClick.bind(this);
     }
 
     //function to make the user admin
@@ -64,6 +62,7 @@ class Signuppage extends Component {
                     icon: "success",
                     button: "Enjoy"
                   })
+                  this.props.backward();
             }
         })
         .catch((error)=>{
@@ -73,19 +72,6 @@ class Signuppage extends Component {
                 icon: "warning"
               })
         })
-    }
-
-    //function to render the login page
-    renderlogin(){
-        this.setState({
-            login:true
-        })
-    }
-
-    //function to perform the signup and render the login page
-    onClick(event){
-        this.signup();
-        this.renderlogin();
     }
 
     render(){
@@ -102,7 +88,7 @@ class Signuppage extends Component {
                     <input type="checkbox" onClick={this.makeadmin} className="Signupformcheckbox"></input>
                     <label>I want to be an Editor</label>
                 </div>
-                <button className="Signupformbutton" onClick={this.onClick}>SIGN UP</button>
+                <button className="Signupformbutton" onClick={this.signup}>SIGN UP</button>
             </div>
             </div>
         )

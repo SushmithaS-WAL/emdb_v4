@@ -12,7 +12,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state={
-      category:'movie',
+      category:'',
       keyword:'',
       results:[],
       listorslideshow:false,
@@ -50,11 +50,6 @@ class App extends Component {
       withCredentials:true
     })
     .then((obj)=>{
-      this.setState({
-        sort_toggle:{
-          visibility:'visible'
-        }
-      })
       if(obj.data === 'error'){
         swal({
           title: "Sorry",
@@ -62,14 +57,27 @@ class App extends Component {
           icon: "warning",
         });
       }
+      else if(obj.data === 'category-error'){
+        swal({
+          title: "Sorry",
+          text: "Select a category to search",
+          icon: "warning",
+        });
+      }
       else {
+        this.setState({
+          sort_toggle:{
+            visibility:'visible'
+          }
+        })
         if(this.state.category === 'movie')
         {
           this.setState({
             results:obj.data,
             listorslideshow:true,
             slideshow:false,
-            actor:false
+            actor:false,
+            loginform:false
           })
         }
         else if(this.state.category === 'person')
@@ -78,7 +86,8 @@ class App extends Component {
             results:obj.data,
             actor:true,
             slideshow:false,
-            listorslideshow:false
+            listorslideshow:false,
+            loginform:false
           })
         }
       }
@@ -153,7 +162,8 @@ class App extends Component {
             results:obj.data,
             listorslideshow:true,
             slideshow:false,
-            actor:false
+            actor:false,
+            loginform:false
           })
         }
         else if(this.state.category === 'person')
@@ -162,7 +172,8 @@ class App extends Component {
             results:obj.data,
             actor:true,
             slideshow:false,
-            listorslideshow:false
+            listorslideshow:false,
+            loginform:false
           })
         }
       }
@@ -188,6 +199,7 @@ class App extends Component {
             <input className="Searchfield" type="text" placeholder="Search...." value={this.state.keyword} onChange={this.searchKeyword}></input>
             <button className="Searchbutton" onClick={this.search}>Find</button>
             <select className="Searchcategory" onChange={this.category}>
+              <option>Category</option>
               <option value='movie'>Movie</option>
               <option value='person'>Cast and Crew</option>
             </select>
