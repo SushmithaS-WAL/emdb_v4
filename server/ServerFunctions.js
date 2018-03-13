@@ -258,17 +258,55 @@ userchoicelist = (req,res) => {
     var decoded = jwt.verify(token,'BLACKPANTHER');
     var username = decoded.username;
     if(choice === 'favourites'){
-        userdata.userdata.find({username:username,favourites:true}).select('title')
+        userdata.userdata.find({username:username,favourites:true}).sort({_id:-1})
         .then((obj)=>{
             res.send(obj);
         })
     }
     else if(choice === 'watchlist'){
-        userdata.userdata.find({username:username,watchlist:true})
+        userdata.userdata.find({username:username,watchlist:true}).sort({_id:-1})
         .then((obj)=>{
             res.send(obj);
         })
     }
+}
+
+//function to delete user favourites or watchlist
+delete_user_list = (req,res) => {
+    id=req.body.id;
+    list=req.body.list;
+    if(list === 'watchlist'){
+        userdata.userdata.deleteOne({id:id,watchlist:true})
+        .then((obj)=>{
+            res.send('success');
+        })
+        .catch((error)=>{
+            console.log('error')
+        })
+    }
+    else if(list === 'favourites'){
+        userdata.userdata.deleteOne({id:id,favourites:true})
+        .then((obj)=>{
+            res.send('success');
+        })
+        .catch((error)=>{
+            console.log('error')
+        })
+    }
+}
+
+//function to get the movie reviews
+getReview = (req,res) => {
+    id = req.body.id;
+    userdata.userdata.find({id:id}).select('review')
+    .then((obj)=>{
+        if(obj.length === 0){
+            res.send('No review');
+        }
+        else{
+            res.send(obj);
+        }
+    })
 }
 
 module.exports = {
@@ -279,5 +317,7 @@ module.exports = {
     addreview,
     logoutHandler,
     sortResults,
-    userchoicelist
+    userchoicelist,
+    delete_user_list,
+    getReview
 }

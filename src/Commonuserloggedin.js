@@ -11,6 +11,7 @@ class Commonuserloggedin extends Component {
   constructor(props){
     super(props);
     this.state={
+      list:'',
       category:'movie',
       keyword:'',
       results:[],
@@ -30,6 +31,7 @@ class Commonuserloggedin extends Component {
     this.sort=this.sort.bind(this);
     this.logout=this.logout.bind(this);
     this.user_data_list=this.user_data_list.bind(this);
+    this.remove=this.remove.bind(this);
   }
 
   //Gets the keyword from the textfield
@@ -106,7 +108,6 @@ class Commonuserloggedin extends Component {
       }
     })
   }
-
   //selects the category for search
   category(event){
     this.setState({
@@ -207,17 +208,50 @@ class Commonuserloggedin extends Component {
     .catch((error)=>{
       console.log('error')
     })
+    // this.setState({
+    //   list:event.target.value,
+    // })
+  }
+
+  //function to remove user list
+  remove(event){
+    axios({
+      method:'delete',
+      url:'http://localhost:3001/delete-user-list',
+      data:{
+        id:event.target.id,
+        list:this.state.list
+      },
+      withCredentials:true
+    })
+    .then((obj)=>{
+      if(obj.data === 'success'){
+        swal({
+          title: "Success",
+          text: "Removed from your list",
+          icon: "success",
+        });
+      }
+    })
+    .catch((error)=>{
+      swal({
+        title: "Sorry",
+        text: "Could not remove from the list",
+        icon: "warning",
+      });
+    }) 
   }
 
 render() {
   var userchoice=(
-    <div className="Slideshow">
+    <div className="Slideshow1">
       {
         this.state.userchoicelist.map((element,index)=>{
           return(
-            <div key={index}>
-            <li>{element.title}</li><button>Remove</button>
+            <div key={index} className="userslist">
+            <p>{element.title}</p>
             </div>
+            //<button className="userlist-button" id={element.id} onClick={this.remove}>Remove</button>
           )
         })
       }
@@ -238,6 +272,7 @@ render() {
             <option value='person'>Cast and Crew</option>
           </select>
           <select style={this.state.sort_toggle} className="Searchsort" onChange={this.sort}>
+            <option>Sort By</option>
             <option value='highr'>Rating: High to Low</option>
             <option value='lowr'>Rating: Low to High</option>
             <option value='new'>Latest</option>

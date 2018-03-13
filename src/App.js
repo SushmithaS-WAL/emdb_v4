@@ -192,6 +192,7 @@ class App extends Component {
               <option value='person'>Cast and Crew</option>
             </select>
             <select style={this.state.sort_toggle} className="Searchsort" onChange={this.sort}>
+              <option>Sort By</option>
               <option value='highr'>Rating: High to Low</option>
               <option value='lowr'>Rating: Low to High</option>
               <option value='new'>Latest</option>

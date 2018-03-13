@@ -43,8 +43,14 @@ app.post('/logout',serverfunctions.logoutHandler);
 //get request at sort
 app.post('/sort',serverfunctions.sortResults);
 
-
+//get request at user-data-list
 app.post('/user-data-list',serverfunctions.userchoicelist);
+
+//get request at delete-user-list
+// app.delete('delete-user-list',serverfunctions.delete_user_list);
+
+//get request at get-review
+app.post('/get-review',serverfunctions.getReview);
 
 //server listening at PORT 3001
 app.listen(3001,()=>{
