@@ -289,21 +289,21 @@ delete_user_list = (req,res) => {
     id=req.body.id;
     list=req.body.list;
     if(list === 'watchlist'){
-        userdata.userdata.deleteOne({id:id,watchlist:true})
+        userdata.userdata.findOneAndUpdate({id:id,watchlist:true},{watchlist:false})
         .then((obj)=>{
             res.send('success');
         })
         .catch((error)=>{
-            console.log('error')
+            res.send(error)
         })
     }
     else if(list === 'favourites'){
-        userdata.userdata.deleteOne({id:id,favourites:true})
+        userdata.userdata.findOneAndUpdate({id:id,favourites:true},{favourites:false})
         .then((obj)=>{
             res.send('success');
         })
         .catch((error)=>{
-            console.log('error')
+            res.send(error)
         })
     }
 }

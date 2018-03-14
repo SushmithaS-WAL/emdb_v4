@@ -24,7 +24,8 @@ class Commonuserloggedin extends Component {
       },
       userlist:false,
       userloggedin:true,
-      userchoicelist:[]
+      userchoicelist:[],
+      userListFunctionCall:false
     }
     this.searchKeyword=this.searchKeyword.bind(this);
     this.search=this.search.bind(this);
@@ -33,7 +34,8 @@ class Commonuserloggedin extends Component {
     this.sort=this.sort.bind(this);
     this.logout=this.logout.bind(this);
     this.user_data_list=this.user_data_list.bind(this);
-    // this.remove=this.remove.bind(this);
+    this.user_data_list_request=this.user_data_list_request.bind(this);
+    this.remove=this.remove.bind(this);
   }
 
   //Gets the keyword from the textfield
@@ -200,12 +202,20 @@ class Commonuserloggedin extends Component {
     })
   }
 
-  user_data_list(event){
+  //function used to request for rendering the user list
+  user_data_list_request(event){
+    this.setState({
+      userListFunctionCall:true,
+      list:event.target.value
+    })
+  }
+
+  user_data_list(){
     axios({
       method:'post',
       url:'http://localhost:3001/user-data-list',
       data:{
-        list:event.target.value
+        list:this.state.list
       },
       withCredentials:true
     })
@@ -213,7 +223,7 @@ class Commonuserloggedin extends Component {
       if(obj.data === 'nothing'){
         this.setState({
           userlist:false,
-          slideshow:true
+          slideshow:true,
         })
       }
       else{
@@ -222,7 +232,8 @@ class Commonuserloggedin extends Component {
           listorslideshow:false,
           slideshow:false,
           actor:false,
-          userchoicelist:obj.data
+          userchoicelist:obj.data,
+          userListFunctionCall:false
         }) 
       }
     })
@@ -236,33 +247,36 @@ class Commonuserloggedin extends Component {
   }
 
   //function to remove user list
-  // remove(event){
-  //   axios({
-  //     method:'delete',
-  //     url:'http://localhost:3001/delete-user-list',
-  //     data:{
-  //       id:event.target.id,
-  //       list:this.state.list
-  //     },
-  //     withCredentials:true
-  //   })
-  //   .then((obj)=>{
-  //     if(obj.data === 'success'){
-  //       swal({
-  //         title: "Success",
-  //         text: "Removed from your list",
-  //         icon: "success",
-  //       });
-  //     }
-  //   })
-  //   .catch((error)=>{
-  //     swal({
-  //       title: "Sorry",
-  //       text: "Could not remove from the list",
-  //       icon: "warning",
-  //     });
-  //   }) 
-  // }
+  remove(event){
+    axios({
+      method:'post',
+      url:'http://localhost:3001/delete-user-list',
+      data:{
+        id:event.target.id,
+        list:this.state.list
+      },
+      withCredentials:true
+    })
+    .then((obj)=>{
+      this.setState({
+        userListFunctionCall:true
+      })
+      if(obj.data === 'success'){
+        swal({
+          title: "Success",
+          text: "Removed from your list",
+          icon: "success",
+        });
+      }
+    })
+    .catch((error)=>{
+      swal({
+        title: "Sorry",
+        text: "Could not remove from the list",
+        icon: "warning",
+      });
+    }) 
+  }
 
 render() {
   var userchoice=(
@@ -278,8 +292,8 @@ render() {
           return(
             <div key={index} className="userslist">
             <p>{element.title}</p>
+            <button className="userlist-button" id={element.id} onClick={this.remove}>Remove</button>
             </div>
-            //<button className="userlist-button" id={element.id} onClick={this.remove}>Remove</button>
           )
         })
       }
@@ -308,7 +322,7 @@ render() {
             <option value='old'>Oldest</option>
           </select>
         </div>
-        <select className="userlists" onChange={this.user_data_list}>
+        <select className="userlists" onChange={this.user_data_list_request}>
             <option value='userlist'>User List</option>
             <option value='watchlist'>Show Watchlist</option>
             <option value='favourites'>Show Favourites</option>
@@ -319,6 +333,7 @@ render() {
       {this.state.listorslideshow ? <UserMovieList result = {this.state.results} /> : null}
       {this.state.actor ? <Actorlist result = {this.state.results} /> : null}
       {this.state.userlist ? userchoice : null}
+      {this.state.userListFunctionCall ? this.user_data_list() : null}
     </div>
   )
 

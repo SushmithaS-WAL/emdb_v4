@@ -47,7 +47,7 @@ app.post('/sort',serverfunctions.sortResults);
 app.post('/user-data-list',serverfunctions.userchoicelist);
 
 //get request at delete-user-list
-// app.delete('delete-user-list',serverfunctions.delete_user_list);
+app.post('/delete-user-list',serverfunctions.delete_user_list);
 
 //get request at get-review
 app.post('/get-review',serverfunctions.getReview);
