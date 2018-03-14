@@ -65,7 +65,6 @@ class UserMoviedetail extends Component {
     getreview(event){
         this.setState({
             review:event.target.value,
-            title:event.target.id
         })
     }
 
@@ -84,7 +83,7 @@ class UserMoviedetail extends Component {
     }
 
     //function to add review,favourite,watchlist
-    submit(){
+    submit(event){
         axios({
             method:'post',
             url:'http://localhost:3001/userreview',
@@ -92,7 +91,7 @@ class UserMoviedetail extends Component {
                 review:this.state.review,
                 watchlist:this.state.watchlist,
                 favourites:this.state.favourites,
-                title:this.state.title
+                title:event.target.id
             },
             withCredentials:true
         })
@@ -159,7 +158,7 @@ class UserMoviedetail extends Component {
                             <input type="checkbox"  className="Userfavouritecheckbox" onClick={this.favourites}></input>
                             <label>Add to Favourites</label>
                         </div>
-                        <button className="Moviefulldetail-submit" onClick={this.submit}>
+                        <button id={element.id} className="Moviefulldetail-submit" onClick={this.submit}>
                             Submit
                         </button>
                         <div className="Moviefulldetail-overview">
@@ -190,7 +189,7 @@ class UserMoviedetail extends Component {
                         }
                         </div>
                         <div className="Moviefulldetail-review">
-                            <textarea id={element.id} rows="5" cols="40" onChange={this.getreview} value={this.state.review}>
+                            <textarea rows="5" cols="40" onChange={this.getreview} value={this.state.review}>
                             </textarea>
                         </div>
                         <div>

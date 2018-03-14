@@ -115,7 +115,8 @@ class Commonuserloggedin extends Component {
       slideshow:true,
       sort_toggle:{
         visibility:'hidden'
-      }
+      },
+      keyword:''
     })
   }
   //selects the category for search
