@@ -209,13 +209,21 @@ class Commonuserloggedin extends Component {
       withCredentials:true
     })
     .then((obj)=>{
-      this.setState({
-        userlist:true,
-        listorslideshow:false,
-        slideshow:false,
-        actor:false,
-        userchoicelist:obj.data
-      })
+      if(obj.data === 'nothing'){
+        this.setState({
+          userlist:false,
+          slideshow:true
+        })
+      }
+      else{
+        this.setState({
+          userlist:true,
+          listorslideshow:false,
+          slideshow:false,
+          actor:false,
+          userchoicelist:obj.data
+        }) 
+      }
     })
     .catch((error)=>{
       swal({
@@ -300,7 +308,7 @@ render() {
           </select>
         </div>
         <select className="userlists" onChange={this.user_data_list}>
-            <option>User List</option>
+            <option value='userlist'>User List</option>
             <option value='watchlist'>Show Watchlist</option>
             <option value='favourites'>Show Favourites</option>
         </select>

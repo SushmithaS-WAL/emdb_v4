@@ -191,6 +191,7 @@ addreview = (req,res) => {
 
     movie.movie.find({id:title})
     .then((obj)=>{
+        // userdata.userdata.findOneAndUpdate({username:username,id:title},{"$set":{title:obj[0].title,review:review,favourites:favourites,watchlist:watchlist}})
         userdata.userdata.create({username:username,id:title,title:obj[0].title,review:review,favourites:favourites,watchlist:watchlist})
         .then((obj)=>{
             res.send('Added Review')
@@ -277,6 +278,9 @@ userchoicelist = (req,res) => {
         .then((obj)=>{
             res.send(obj);
         })
+    }
+    else if(choice === 'userlist'){
+            res.send('nothing');
     }
 }
 
