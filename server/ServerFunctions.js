@@ -216,6 +216,12 @@ sortResults = (req,res) => {
                 res.send(obj);
             })
         }
+        else if(sortMethod === 'Sort By'){
+            movie.movie.find({ title: { '$regex': keyword, '$options': 'i' } })
+            .then((obj)=>{
+                res.send(obj);
+            })
+        }
         else if(sortMethod === 'lowr'){
             movie.movie.find({ title: { '$regex': keyword, '$options': 'i' } }).sort({vote_average:1})
             .then((obj)=>{

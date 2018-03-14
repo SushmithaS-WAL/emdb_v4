@@ -3,7 +3,6 @@ import './App.css';
 import bootstrap from 'bootstrap';
 import axios from 'axios';
 import swal from 'sweetalert';
-import Loginpage from './Loginpage';
 
 class Signuppage extends Component {
 
@@ -13,7 +12,6 @@ class Signuppage extends Component {
             username:'',
             password:'',
             admin:false,
-            login:false
         }
         this.makeadmin=this.makeadmin.bind(this);
         this.getusername=this.getusername.bind(this);
@@ -62,7 +60,7 @@ class Signuppage extends Component {
                     icon: "success",
                     button: "Enjoy"
                   })
-                  this.props.backward();
+                  this.props.Login();
             }
         })
         .catch((error)=>{
@@ -93,7 +91,7 @@ class Signuppage extends Component {
             </div>
         )
 
-        return(this.state.login ? <Loginpage /> : signuppage)
+        return(signuppage)
     }
 }
 

@@ -3,8 +3,6 @@ import './App.css';
 import bootstrap from 'bootstrap';
 import axios from 'axios';
 import swal from 'sweetalert';
-import Signuppage from './Signuppage';
-import Commonuserloggedin from './Commonuserloggedin'
 
 class Loginpage extends Component {
 
@@ -13,15 +11,11 @@ class Loginpage extends Component {
         this.state={
             username:'',
             password:'',
-            signupform:false,
-            commonuser:false,
-            login:true
         }
         this.getusername=this.getusername.bind(this);
         this.getpassword=this.getpassword.bind(this);
         this.loginfunction=this.loginfunction.bind(this);
         this.signupform=this.signupform.bind(this);
-        this.back=this.back.bind(this);
     }
 
     //function to get the username
@@ -50,10 +44,6 @@ class Loginpage extends Component {
             withCredentials:true
         })
         .then((obj)=>{
-            this.setState({
-                commonuser:true,
-                login:false
-            })
             if(obj.data === 'success'){
                 swal({
                     title: "Success",
@@ -62,6 +52,7 @@ class Loginpage extends Component {
                     button: "Enjoy"
                   })
             }
+            this.props.Signin();
         })
         .catch((error)=>{
             swal({
@@ -75,17 +66,7 @@ class Loginpage extends Component {
 
     //function to render the sign up form
     signupform(){
-        this.setState({
-            login: false,
-            signupform:true
-        })
-    }
-
-    back(){
-        this.setState({
-            login:true,
-            signupform:false
-        })
+        this.props.Signup();
     }
 
     render(){
@@ -106,14 +87,7 @@ class Loginpage extends Component {
             </div>
         )
 
-        return(
-            <div>
-            {this.state.signupform ? <Signuppage backward={this.back} /> : null}
-            {this.state.login ? loginform : null}
-            {this.state.commonuser ? <Commonuserloggedin /> : null}
-            </div>
-            
-        )
+        return(loginform)        
     }
 }
 

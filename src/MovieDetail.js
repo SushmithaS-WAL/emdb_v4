@@ -12,6 +12,7 @@ class Moviedetail extends Component {
         super(props);
         this.state={
             review:[],
+            movie_detail:true,
             moviereview:false
         }
         this.getReview=this.getReview.bind(this);
@@ -45,7 +46,7 @@ class Moviedetail extends Component {
             else{
                 this.setState({
                     review:obj.data,
-                    moviereview:true
+                    moviereview:!this.state.moviereview
                 })
             }
         })
@@ -134,8 +135,7 @@ class Moviedetail extends Component {
         )
 
         return(
-            Moviedetail
-            // this.state.movie_detail ? Moviedetail : null
+            this.state.movie_detail ? Moviedetail : null
         );
     }
 }

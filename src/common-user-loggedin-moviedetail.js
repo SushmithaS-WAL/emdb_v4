@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
-import bootstrap from 'bootstrap';
 import swal from 'sweetalert';
+import bootstrap from 'bootstrap';
+import UserMovielist from './common-user-logged-in-movie-lists'
 
 class UserMoviedetail extends Component {
 
@@ -10,6 +11,7 @@ class UserMoviedetail extends Component {
         super(props);
         this.state={
             reviews:[],
+            movie_detail:true,
             moviereview:false,
             review:'',
             watchlist:false,
@@ -21,6 +23,12 @@ class UserMoviedetail extends Component {
         this.watchlist=this.watchlist.bind(this);
         this.favourites=this.favourites.bind(this);
         this.submit=this.submit.bind(this);
+        this.goBack=this.goBack.bind(this);
+    }
+
+    //function to go backk to the movielist
+    goBack(){
+        this.props.backward();
     }
 
     getReviews(event){
@@ -44,7 +52,7 @@ class UserMoviedetail extends Component {
             else{
                 this.setState({
                     reviews:obj.data,
-                    moviereview:true
+                    moviereview:!this.state.moviereview
                 })
             }
         })
@@ -96,6 +104,13 @@ class UserMoviedetail extends Component {
                 button: "Good One"
               })
         })
+        .catch((error)=>{
+            swal({
+                title: "Sorry",
+                text: "Could not add the review",
+                icon: "warning",
+              });
+        })
     }
 
     render(){
@@ -125,7 +140,7 @@ class UserMoviedetail extends Component {
                 {this.props.moviedetails.map((element,index)=>{
                     return(
                         <div key={index}>
-                        <div className="whitener"></div>
+                        {/* <div className="whitener"></div> */}
                         <p className="Moviefulldetail-title">{element.title}</p>
                         <img className="Moviefulldetail-image" src={`https://image.tmdb.org/t/p/w154/${element.poster_path}`} alt="poster" />
                         <div className="Moviefulldetail-rating">
@@ -182,6 +197,9 @@ class UserMoviedetail extends Component {
                         <div>
                             <button id={element.id} className="Readreview" onClick={this.getReviews}>Read Reviews</button>
                         </div>
+                        <div>
+                            <button className="back-button" onClick={this.goBack}>Go Back</button>
+                        </div>
                         </div>
                     )
                 })}
@@ -192,7 +210,7 @@ class UserMoviedetail extends Component {
             </div>
         )
 
-        return(Moviedetail);
+        return(this.state.movie_detail ? Moviedetail : null);
     }
 }
 

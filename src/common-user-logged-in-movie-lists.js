@@ -15,6 +15,14 @@ class UserMovielist extends Component {
             detail_screen:false
         }
         this.moreDetails=this.moreDetails.bind(this);
+        this.back=this.back.bind(this);
+    }
+
+    back(){
+        this.setState({
+            list_screen:true,
+            detail_screen:false
+        })
     }
 
     //function to get more movie details
@@ -87,7 +95,7 @@ class UserMovielist extends Component {
                 return(
                     <div>
                         {this.state.list_screen ? movie_detail_list : null}
-                        {this.state.detail_screen ? <UserMoviedetail moviedetails = {this.state.details}/> : null}
+                        {this.state.detail_screen ? <UserMoviedetail moviedetails = {this.state.details} backward = {this.back}/> : null}
                     </div>
                 );
     }

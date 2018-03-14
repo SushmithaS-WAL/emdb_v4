@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
+import bootstrap from 'bootstrap';
 import swal from 'sweetalert'
 import Slideshow from './slideshow';
 import UserMovieList from './common-user-logged-in-movie-lists';
@@ -12,7 +13,7 @@ class Commonuserloggedin extends Component {
     super(props);
     this.state={
       list:'',
-      category:'movie',
+      category:'',
       keyword:'',
       results:[],
       listorslideshow:false,
@@ -22,6 +23,7 @@ class Commonuserloggedin extends Component {
         visibility:'hidden'
       },
       userlist:false,
+      userloggedin:true,
       userchoicelist:[]
     }
     this.searchKeyword=this.searchKeyword.bind(this);
@@ -31,7 +33,7 @@ class Commonuserloggedin extends Component {
     this.sort=this.sort.bind(this);
     this.logout=this.logout.bind(this);
     this.user_data_list=this.user_data_list.bind(this);
-    this.remove=this.remove.bind(this);
+    // this.remove=this.remove.bind(this);
   }
 
   //Gets the keyword from the textfield
@@ -53,11 +55,6 @@ class Commonuserloggedin extends Component {
       withCredentials:true
     })
     .then((obj)=>{
-      this.setState({
-        sort_toggle:{
-          visibility:'visible'
-        }
-      })
       if(obj.data === 'error'){
         swal({
           title: "Sorry",
@@ -65,13 +62,26 @@ class Commonuserloggedin extends Component {
           icon: "warning",
         });
       }
+      else if(obj.data === 'category-error'){
+        swal({
+          title: "Sorry",
+          text: "Select a category to search",
+          icon: "warning",
+        });
+      }
       else {
+        this.setState({
+          sort_toggle:{
+            visibility:'visible'
+          }
+        })
         if(this.state.category === 'movie')
         {
           this.setState({
             results:obj.data,
             listorslideshow:true,
             slideshow:false,
+            userlist:false,
             actor:false
           })
         }
@@ -81,6 +91,7 @@ class Commonuserloggedin extends Component {
             results:obj.data,
             actor:true,
             slideshow:false,
+            userlist:false,
             listorslideshow:false
           })
         }
@@ -99,7 +110,6 @@ class Commonuserloggedin extends Component {
   home(){
     this.setState({
       listorslideshow:false,
-      loginform:false,
       userlist:false,
       actor:false,
       slideshow:true,
@@ -164,7 +174,8 @@ class Commonuserloggedin extends Component {
             results:obj.data,
             listorslideshow:true,
             slideshow:false,
-            actor:false
+            actor:false,
+            userlist:false
           })
         }
         else if(this.state.category === 'person')
@@ -173,7 +184,8 @@ class Commonuserloggedin extends Component {
             results:obj.data,
             actor:true,
             slideshow:false,
-            listorslideshow:false
+            listorslideshow:false,
+            userlist:false
           })
         }
       }
@@ -206,45 +218,52 @@ class Commonuserloggedin extends Component {
       })
     })
     .catch((error)=>{
-      console.log('error')
+      swal({
+        title: "Sorry",
+        text: "Could not connect to the server",
+        icon: "warning",
+      });
     })
-    // this.setState({
-    //   list:event.target.value,
-    // })
   }
 
   //function to remove user list
-  remove(event){
-    axios({
-      method:'delete',
-      url:'http://localhost:3001/delete-user-list',
-      data:{
-        id:event.target.id,
-        list:this.state.list
-      },
-      withCredentials:true
-    })
-    .then((obj)=>{
-      if(obj.data === 'success'){
-        swal({
-          title: "Success",
-          text: "Removed from your list",
-          icon: "success",
-        });
-      }
-    })
-    .catch((error)=>{
-      swal({
-        title: "Sorry",
-        text: "Could not remove from the list",
-        icon: "warning",
-      });
-    }) 
-  }
+  // remove(event){
+  //   axios({
+  //     method:'delete',
+  //     url:'http://localhost:3001/delete-user-list',
+  //     data:{
+  //       id:event.target.id,
+  //       list:this.state.list
+  //     },
+  //     withCredentials:true
+  //   })
+  //   .then((obj)=>{
+  //     if(obj.data === 'success'){
+  //       swal({
+  //         title: "Success",
+  //         text: "Removed from your list",
+  //         icon: "success",
+  //       });
+  //     }
+  //   })
+  //   .catch((error)=>{
+  //     swal({
+  //       title: "Sorry",
+  //       text: "Could not remove from the list",
+  //       icon: "warning",
+  //     });
+  //   }) 
+  // }
 
 render() {
   var userchoice=(
     <div className="Slideshow1">
+    <div>
+    <header className="App-header">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </header>
+    </div>
       {
         this.state.userchoicelist.map((element,index)=>{
           return(
@@ -268,11 +287,12 @@ render() {
           <input className="Searchfield" type="text" placeholder="Search...." value={this.state.keyword} onChange={this.searchKeyword}></input>
           <button className="Searchbutton" onClick={this.search}>Find</button>
           <select className="Searchcategory" onChange={this.category}>
+            <option>Category</option>
             <option value='movie'>Movie</option>
             <option value='person'>Cast and Crew</option>
           </select>
           <select style={this.state.sort_toggle} className="Searchsort" onChange={this.sort}>
-            <option>Sort By</option>
+            <option value='Sort By'>Sort By</option>
             <option value='highr'>Rating: High to Low</option>
             <option value='lowr'>Rating: Low to High</option>
             <option value='new'>Latest</option>
@@ -295,9 +315,7 @@ render() {
 
     
 
-    return(
-      homePage
-    )
+    return(this.state.userloggedin ? homePage : null)
   }
 }
 
