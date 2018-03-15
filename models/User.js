@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/tmdb');
 
 const userSchema = mongoose.Schema({
-    username: String,
+    username: {
+        type: String,
+        unique:true
+    },
     password: String,
     authorization: String,
     token: String,

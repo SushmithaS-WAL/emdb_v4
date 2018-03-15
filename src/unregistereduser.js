@@ -8,6 +8,7 @@ import Actorlist from './Actorlist';
 import Loginpage from './Loginpage';
 import Signuppage from './Signuppage';
 import Commonuserloggedin from './Commonuserloggedin';
+import Adminuserloggedin from './admin-user-loggedin';
 
 class Unregistereduser extends Component {
 
@@ -27,6 +28,7 @@ class Unregistereduser extends Component {
       signupform:false,
       signinuser:false,
       unregistered:true,
+      adminuser:false
     }
     this.searchKeyword=this.searchKeyword.bind(this);
     this.search=this.search.bind(this);
@@ -37,6 +39,7 @@ class Unregistereduser extends Component {
     this.signup=this.signup.bind(this);
     this.login=this.login.bind(this);
     this.registeredhomepage=this.registeredhomepage.bind(this);
+    this.adminSignin=this.adminSignin.bind(this);
   }
   
   //Gets the keyword from the textfield
@@ -232,8 +235,22 @@ class Unregistereduser extends Component {
       loginform:false,
       signupform:false,
       signinuser:true,
-      unregistered:false
+      unregistered:false,
+      adminuser:false
     })
+  }
+
+  adminSignin(){
+    this.setState({
+      actor:false,
+      slideshow:false,
+      listorslideshow:false,
+      loginform:false,
+      signupform:false,
+      signinuser:false,
+      unregistered:false,
+      adminuser:true
+    })   
   }
 
 
@@ -265,7 +282,7 @@ class Unregistereduser extends Component {
         {this.state.slideshow ? <Slideshow /> : null}
         {this.state.listorslideshow ? <MovieList result = {this.state.results} /> : null}
         {this.state.actor ? <Actorlist result = {this.state.results} /> : null}
-        {this.state.loginform ? <Loginpage Signup={this.signup} Signin={this.registeredhomepage}/> : null}
+        {this.state.loginform ? <Loginpage Signup={this.signup} Signin={this.registeredhomepage} adminSignin={this.adminSignin}/> : null}
         {this.state.signupform ? <Signuppage Login={this.login} /> : null}
       </div>
     )
@@ -274,6 +291,7 @@ class Unregistereduser extends Component {
       <div>
         {this.state.unregistered ? homePage : null}
         {this.state.signinuser ? <Commonuserloggedin /> : null}
+        {this.state.adminuser ? <Adminuserloggedin /> : null}
       </div>
     )
   }

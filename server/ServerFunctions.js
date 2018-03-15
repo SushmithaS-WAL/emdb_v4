@@ -107,20 +107,33 @@ searchHandler = (req, res) => {
 loginHandler = (req,res) => {
     username = req.body.username;
     var token = jwt.sign({username},'BLACKPANTHER');
-    user.user.findOneAndUpdate({username:username},{token:token})
+    var admintoken = jwt.sign({username},'TCHALLA');
+    user.user.find({username:username})
     .then((obj)=>{
-        if(obj.authorization === 'common'){
-            console.log('Added Token');
+        if(obj[0].authorization === 'common'){
+            user.user.findOneAndUpdate({username:username},{token:token})
+            .then((obj)=>{
+                res.clearCookie('token');
+                res.clearCookie('admintoken')
+                console.log("Cleared previous cookie");
+                res.cookie('token',token);
+                res.send("commonsuccess");
+            })
         }
-        // else if (obj.authorization === '')
+        else if(obj[0].authorization === 'admin'){
+            user.user.findOneAndUpdate({username:username},{token:admintoken})
+            .then((obj)=>{
+                res.clearCookie('token');
+                res.clearCookie('admintoken')
+                console.log("Cleared previous cookie");
+                res.cookie('admintoken',admintoken);
+                res.send("adminsuccess");  
+            })  
+        }
     })
     .catch((error)=>{
         console.log(error);
     })
-    res.clearCookie('token');
-    console.log("Cleared previous cookie");
-    res.cookie('token',token);
-    res.send("success");
 }
 
 //function to encrypt password and register the user
@@ -202,6 +215,7 @@ addreview = (req,res) => {
 //function to logout the user
 logoutHandler = (req,res) => {
     res.clearCookie('token');
+    res.clearCookie('admintoken');
     res.send('success');
 }
 
@@ -322,6 +336,44 @@ getReview = (req,res) => {
     })
 }
 
+userChoice = (req,res) => {
+    var token = req.cookies.token;
+    var decoded = jwt.verify(token,'BLACKPANTHER');
+    var username = decoded.username;
+    var id = req.body.id;
+    userdata.userdata.find({username:username,id:id})
+    .then((obj)=>{
+        if(obj.data.length === 0){
+            res.send('no-entries');
+        }
+        else{
+            res.send(obj);
+        }
+    })   
+}
+
+removeActor = (req,res) => {
+    var id = req.body.id;
+    person.person.findOneAndRemove({_id:id})
+    .then((obj)=>{
+        res.send('success');
+    })
+    .catch((error)=>{
+        console.log('Could not connect to the database');
+    })
+}
+
+removeMovie = (req,res) => {
+    var id = req.body.id;
+    movie.movie.findOneAndRemove({_id:id})
+    .then((obj)=>{
+        res.send('success');
+    })
+    .catch((error)=>{
+        console.log('Could not connect to the database');
+    })
+}
+
 module.exports = {
     searchHandler,
     loginHandler,
@@ -332,5 +384,8 @@ module.exports = {
     sortResults,
     userchoicelist,
     delete_user_list,
-    getReview
+    getReview,
+    userChoice,
+    removeActor,
+    removeMovie
 }

@@ -44,15 +44,25 @@ class Loginpage extends Component {
             withCredentials:true
         })
         .then((obj)=>{
-            if(obj.data === 'success'){
+            if(obj.data === 'commonsuccess'){
                 swal({
                     title: "Success",
                     text: "You are logged in",
                     icon: "success",
                     button: "Enjoy"
                   })
+                  this.props.Signin();
             }
-            this.props.Signin();
+            else if(obj.data === 'adminsuccess'){
+                swal({
+                    title: "Success",
+                    text: "You are logged in",
+                    icon: "success",
+                    button: "Enjoy"
+                  })
+                  this.props.adminSignin();
+            }
+            
         })
         .catch((error)=>{
             swal({

@@ -4,10 +4,10 @@ import axios from 'axios';
 import bootstrap from 'bootstrap';
 import swal from 'sweetalert'
 import Slideshow from './slideshow';
-import UserMovieList from './common-user-logged-in-movie-lists';
-import Actorlist from './Actorlist';
+import AdminMovieList from './adminMovieList';
+import AdminActorlist from './adminActorList';
 
-class Commonuserloggedin extends Component {
+class Adminuserloggedin extends Component {
 
   constructor(props){
     super(props);
@@ -25,7 +25,9 @@ class Commonuserloggedin extends Component {
       userlist:false,
       userloggedin:true,
       userchoicelist:[],
-      userListFunctionCall:false
+      userListFunctionCall:false,
+      movieCreate:false,
+      personCreate:false
     }
     this.searchKeyword=this.searchKeyword.bind(this);
     this.search=this.search.bind(this);
@@ -36,6 +38,9 @@ class Commonuserloggedin extends Component {
     this.user_data_list=this.user_data_list.bind(this);
     this.user_data_list_request=this.user_data_list_request.bind(this);
     this.remove=this.remove.bind(this);
+    this.create_data=this.create_data.bind(this);
+    this.actortohome=this.actortohome.bind(this);
+    this.movietohome=this.movietohome.bind(this);
   }
 
   //Gets the keyword from the textfield
@@ -285,7 +290,41 @@ class Commonuserloggedin extends Component {
     }) 
   }
 
+  create_data(event){
+    if(event.target.value === 'movie'){
+      this.setState({
+        movieCreate:true
+      })
+    }
+    else if(event.target.value === 'person'){
+      this.setState({
+        personCreate:true
+      })
+    }
+  }
+
+  actortohome(){
+      this.setState({
+          actor:false,
+          slideshow:true,
+          sort_toggle:{
+            visibility:'hidden'
+          }
+      })
+  }
+
+  movietohome(){
+    this.setState({
+        listorslideshow:false,
+        slideshow:true,
+        sort_toggle:{
+          visibility:'hidden'
+        }
+    })
+}
+
 render() {
+
   var userchoice=(
     <div className="Slideshow1">
     <div>
@@ -329,16 +368,11 @@ render() {
             <option value='old'>Oldest</option>
           </select>
         </div>
-        <select className="userlists" onChange={this.user_data_list_request}>
-            <option value='userlist'>User List</option>
-            <option value='watchlist'>Show Watchlist</option>
-            <option value='favourites'>Show Favourites</option>
-        </select>
         <button className="Userlogoutbutton" onClick={this.logout}>Logout</button>
       </div>
       {this.state.slideshow ? <Slideshow /> : null}
-      {this.state.listorslideshow ? <UserMovieList result = {this.state.results} /> : null}
-      {this.state.actor ? <Actorlist result = {this.state.results} /> : null}
+      {this.state.listorslideshow ? <AdminMovieList result = {this.state.results} movietohome = {this.movietohome} /> : null}
+      {this.state.actor ? <AdminActorlist result = {this.state.results} actortohome = {this.actortohome}/> : null}
       {this.state.userlist ? userchoice : null}
       {this.state.userListFunctionCall ? this.user_data_list() : null}
     </div>
@@ -350,4 +384,4 @@ render() {
   }
 }
 
-export default Commonuserloggedin;
+export default Adminuserloggedin;

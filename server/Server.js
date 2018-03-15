@@ -52,6 +52,13 @@ app.post('/delete-user-list',serverfunctions.delete_user_list);
 //get request at get-review
 app.post('/get-review',serverfunctions.getReview);
 
+//get request at user-choice-checker
+app.post('/user-choice-checker',serverfunctions.userChoice);
+
+app.post('/remove-actor',serverfunctions.removeActor);
+
+app.post('/remove-movie',serverfunctions.removeMovie);
+
 //server listening at PORT 3001
 app.listen(3001,()=>{
     console.log('Started listening at PORT: 3001');

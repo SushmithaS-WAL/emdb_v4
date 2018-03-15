@@ -457,6 +457,18 @@
   border-radius: 3px; 
 }
 
+.createlists {
+    position:absolute;
+    color: rgb(141, 218, 166);
+    left: 87%;
+    top: 8%;
+    height:24%;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color:rgb(38, 37, 68);
+    border: 2px solid rgb(141, 218, 166);
+    border-radius: 3px; 
+}
+
 .UserSearchbar {
   position:absolute;
   top:33%;
@@ -531,6 +543,17 @@
   height:90%;
   left:90%;
   top:5%;
+  border-radius: 10px;
+  border: 2px solid rgb(141, 218, 166);
+  background-color: rgb(38, 37, 68);
+  color: white;
+}
+
+.admin-userlist-button {
+  position: absolute;
+  height:30%;
+  left:90%;
+  top:30%;
   border-radius: 10px;
   border: 2px solid rgb(141, 218, 166);
   background-color: rgb(38, 37, 68);
