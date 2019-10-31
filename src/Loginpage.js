@@ -19,9 +19,9 @@ class Loginpage extends Component {
     }
 
     //function to get the username
-    getusername(event){
+    getusername(value){
         this.setState({
-            username:event.target.value
+            username: value
         })
     }
 
@@ -87,7 +87,7 @@ class Loginpage extends Component {
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
             </header>
             <div className="Loginbackground">
-                <input type="text" placeholder="Username" className="Username" value={this.state.username} onChange={this.getusername}></input>
+                <input type="text" placeholder="Username" className="Username" value={this.state.username} onChange={(event) => this.getusername(event.target.value)}></input>
                 <input type="password" placeholder="Password" className="Password" value={this.state.password} onChange={this.getpassword}></input>
                 <button className="Loginformbutton" onClick={this.loginfunction}>LOGIN</button>
                 <div className="Signuplink" onClick={this.signupform}>
