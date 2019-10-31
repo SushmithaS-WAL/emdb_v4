@@ -26,9 +26,9 @@ class Loginpage extends Component {
     }
 
     //function to get the password
-    getpassword(event){
+    getpassword(value){
         this.setState({
-            password:event.target.value
+            password:value
         })
     }
 
@@ -88,7 +88,7 @@ class Loginpage extends Component {
             </header>
             <div className="Loginbackground">
                 <input type="text" placeholder="Username" className="Username" value={this.state.username} onChange={(event) => this.getusername(event.target.value)}></input>
-                <input type="password" placeholder="Password" className="Password" value={this.state.password} onChange={this.getpassword}></input>
+                <input type="password" placeholder="Password" className="Password" value={this.state.password} onChange={(event) => this.getpassword(event.target.value)}></input>
                 <button className="Loginformbutton" onClick={this.loginfunction}>LOGIN</button>
                 <div className="Signuplink" onClick={this.signupform}>
                     New here ? Create an Account.
