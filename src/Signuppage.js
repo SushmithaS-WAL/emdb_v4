@@ -13,14 +13,14 @@ class Signuppage extends Component {
             password:'',
             admin:false,
         }
-        this.makeadmin=this.makeadmin.bind(this);
+        this.makeAdmin=this.makeAdmin.bind(this);
         this.getusername=this.getusername.bind(this);
         this.getpassword=this.getpassword.bind(this);
         this.signup=this.signup.bind(this);
     }
 
     //function to make the user admin
-    makeadmin(){
+    makeAdmin(){
         this.setState({
             admin:!this.state.admin
         })
@@ -83,7 +83,7 @@ class Signuppage extends Component {
                 <input type="text" placeholder="Username" className="Username" onChange={this.getusername} value={this.state.username}></input>
                 <input type="password" placeholder="Password" className="Password" onChange={this.getpassword} value={this.state.password}></input>
                 <div className="Signupformcheckboxcontent">
-                    <input type="checkbox" onClick={this.makeadmin} className="Signupformcheckbox"></input>
+                    <input type="checkbox" onClick={() => this.makeAdmin()} className="Signupformcheckbox"></input>
                     <label>I want to be an Editor</label>
                 </div>
                 <button className="Signupformbutton" onClick={this.signup}>SIGN UP</button>
