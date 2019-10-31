@@ -63,14 +63,14 @@ class Unregistereduser extends Component {
     .then((obj)=>{
       if(obj.data === 'error'){
         swal({
-          title: "Sorry",
+          title: "Oops",
           text: "Could not find what you are searching for.",
           icon: "warning",
         });
       }
       else if(obj.data === 'category-error'){
         swal({
-          title: "Sorry",
+          title: "Oops",
           text: "Select a category to search",
           icon: "warning",
         });
@@ -107,7 +107,7 @@ class Unregistereduser extends Component {
     })
     .catch((error)=>{
       swal({
-        title: "Sorry",
+        title: "Oops",
         text: "Could not connect to the server",
         icon: "warning",
       });
@@ -165,7 +165,7 @@ class Unregistereduser extends Component {
       console.log(obj);
       if(obj.data === 'error'){
         swal({
-          title: "Sorry",
+          title: "Oops",
           text: "Cannot perform the sorting method for Persons.",
           icon: "warning",
         });
@@ -197,7 +197,7 @@ class Unregistereduser extends Component {
     })
     .catch((error)=>{
       swal({
-        title: "Sorry",
+        title: "Oops",
         text: "Could not connect to the server",
         icon: "warning",
       });

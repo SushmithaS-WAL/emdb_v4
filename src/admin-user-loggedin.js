@@ -64,14 +64,14 @@ class Adminuserloggedin extends Component {
     .then((obj)=>{
       if(obj.data === 'error'){
         swal({
-          title: "Sorry",
+          title: "Oops",
           text: "Could not find what you are searching for.",
           icon: "warning",
         });
       }
       else if(obj.data === 'category-error'){
         swal({
-          title: "Sorry",
+          title: "Oops",
           text: "Select a category to search",
           icon: "warning",
         });
@@ -106,7 +106,7 @@ class Adminuserloggedin extends Component {
     })
     .catch((error)=>{
       swal({
-        title: "Sorry",
+        title: "Oops",
         text: "Could not connect to the server",
         icon: "warning",
       });
@@ -170,7 +170,7 @@ class Adminuserloggedin extends Component {
       console.log(obj);
       if(obj.data === 'error'){
         swal({
-          title: "Sorry",
+          title: "Oops",
           text: "Could not perforom the sorting method for Persons.",
           icon: "warning",
         });
@@ -200,7 +200,7 @@ class Adminuserloggedin extends Component {
     })
     .catch((error)=>{
       swal({
-        title: "Sorry",
+        title: "Oops",
         text: "Could not connect to the server",
         icon: "warning",
       });
@@ -233,7 +233,7 @@ class Adminuserloggedin extends Component {
       }
       else if(obj.data.length === 0){
         swal({
-          title: "Sorry",
+          title: "Oops",
           text: "No User List",
           icon: "warning",
         });
@@ -251,7 +251,7 @@ class Adminuserloggedin extends Component {
     })
     .catch((error)=>{
       swal({
-        title: "Sorry",
+        title: "Oops",
         text: "Could not connect to the server",
         icon: "warning",
       });
@@ -283,7 +283,7 @@ class Adminuserloggedin extends Component {
     })
     .catch((error)=>{
       swal({
-        title: "Sorry",
+        title: "Oops",
         text: "Could not remove from the list",
         icon: "warning",
       });

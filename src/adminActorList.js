@@ -32,7 +32,7 @@ class AdminActorlist extends Component {
         })
         .catch((obj)=>{
             swal({
-                title: "Sorry",
+                title: "Oops",
                 text: "Could not remove from Actor list",
                 icon: "warning",
               });

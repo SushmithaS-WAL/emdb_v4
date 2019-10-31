@@ -44,7 +44,7 @@ class UserMoviedetail extends Component {
             console.log(obj.data);
             if(obj.data === 'No review'){
                 swal({
-                    title: "Sorry",
+                    title: "Oops",
                     text: "There's no Review",
                     icon: "warning",
                   });
@@ -105,7 +105,7 @@ class UserMoviedetail extends Component {
         })
         .catch((error)=>{
             swal({
-                title: "Sorry",
+                title: "Oops",
                 text: "Could not add the review",
                 icon: "warning",
               });
