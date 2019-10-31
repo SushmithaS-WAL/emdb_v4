@@ -38,7 +38,7 @@ class Moviedetail extends Component {
             console.log(obj.data);
             if(obj.data === 'No review'){
                 swal({
-                    title: "Sorry",
+                    title: "Oops",
                     text: "There's no Review",
                     icon: "warning",
                   });

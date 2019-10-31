@@ -44,7 +44,7 @@ class Movielist extends Component {
         })
         .catch((error)=>{
             swal({
-                title: "Sorry",
+                title: "Oops",
                 text: "Could not connect to the server",
                 icon: "warning",
               });

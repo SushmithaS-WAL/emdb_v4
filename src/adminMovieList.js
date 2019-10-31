@@ -45,8 +45,8 @@ class AdminMovielist extends Component {
         })
         .catch((error)=>{
             swal({
-                title: "Sorry",
-                text: "Could not connect to the server",
+                title: "Oops",
+                text: "Something went wrong.",
                 icon: "warning",
               });
         })
@@ -73,7 +73,7 @@ class AdminMovielist extends Component {
         })
         .catch((obj)=>{
             swal({
-                title: "Sorry",
+                title: "Oops",
                 text: "Could not remove from Movie list",
                 icon: "warning",
               });
