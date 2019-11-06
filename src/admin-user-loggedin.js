@@ -304,84 +304,84 @@ class Adminuserloggedin extends Component {
   }
 
   actortohome(){
-      this.setState({
-          actor:false,
-          slideshow:true,
-          sort_toggle:{
-            visibility:'hidden'
-          }
-      })
+    this.setState({
+      actor:false,
+      slideshow:true,
+      sort_toggle:{
+        visibility:'hidden'
+      }
+    })
   }
 
   movietohome(){
     this.setState({
-        listorslideshow:false,
-        slideshow:true,
-        sort_toggle:{
-          visibility:'hidden'
-        }
+      listorslideshow:false,
+      slideshow:true,
+      sort_toggle:{
+        visibility:'hidden'
+      }
     })
-}
+  }
 
-render() {
+  render() {
 
-  var userchoice=(
-    <div className="Slideshow1">
-    <div>
-    <header className="App-header">
+    var userchoice=(
+      <div className="Slideshow1">
+      <div>
+      <header className="App-header">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    </header>
-    </div>
+      </header>
+      </div>
       {
         this.state.userchoicelist.map((element,index)=>{
           return(
-            <div key={index} className="userslist">
-            <p>{element.title}</p>
-            <button className="userlist-button" id={element.id} onClick={this.remove}>Remove</button>
-            </div>
+          <div key={index} className="userslist">
+          <p>{element.title}</p>
+          <button className="userlist-button" id={element.id} onClick={this.remove}>Remove</button>
+          </div>
           )
         })
       }
-    </div> 
-  )
-  
-  var homePage=(
-    <div className="Container">
+      </div> 
+      )
+    
+    var homePage=(
+      <div className="Container">
       <div className="Navbar">
-        <div className="Title" onClick={this.home}>
-          emdb
-        </div>
-        <div className="Searchbar">
-          <input className="Searchfield" type="text" placeholder="Search...." value={this.state.keyword} onChange={this.searchKeyword}></input>
-          <button className="Searchbutton" onClick={this.search}>Find</button>
-          <select className="Searchcategory" onChange={this.category}>
-            <option>Category</option>
-            <option value='movie'>Movie</option>
-            <option value='person'>Cast and Crew</option>
-          </select>
-          <select style={this.state.sort_toggle} className="Searchsort" onChange={this.sort}>
-            <option value='Sort By'>Sort By</option>
-            <option value='highr'>Rating: High to Low</option>
-            <option value='lowr'>Rating: Low to High</option>
-            <option value='new'>Latest</option>
-            <option value='old'>Oldest</option>
-          </select>
-        </div>
-        <button className="Userlogoutbutton" onClick={this.logout}>Logout</button>
+      <div className="Title" onClick={this.home}>
+      emdb
+      </div>
+      <div className="Searchbar">
+      <input className="Searchfield" type="text" placeholder="Search...." value={this.state.keyword} onChange={this.searchKeyword}></input>
+      <button className="Searchbutton" onClick={this.search}>Find</button>
+      <select className="Searchcategory" onChange={this.category}>
+      <option>Category</option>
+      <option value='movie'>Movie</option>
+      <option value='person'>Cast and Crew</option>
+      </select>
+      <select style={this.state.sort_toggle} className="Searchsort" onChange={this.sort}>
+      <option value='Sort By'>Sort By</option>
+      <option value='highr'>Rating: High to Low</option>
+      <option value='lowr'>Rating: Low to High</option>
+      <option value='new'>Latest</option>
+      <option value='old'>Oldest</option>
+      </select>
+      </div>
+      <button className="Userlogoutbutton" onClick={this.logout}>Logout</button>
       </div>
       {this.state.slideshow ? <Slideshow /> : null}
       {this.state.listorslideshow ? <AdminMovieList result = {this.state.results} movietohome = {this.movietohome} /> : null}
       {this.state.actor ? <AdminActorlist result = {this.state.results} actortohome = {this.actortohome}/> : null}
       {this.state.userlist ? userchoice : null}
       {this.state.userListFunctionCall ? this.user_data_list() : null}
-    </div>
-  )
+      </div>
+      )
 
-    
+      
 
-    return(this.state.userloggedin ? homePage : null)
+      return(this.state.userloggedin ? homePage : null)
+    }
   }
-}
 
-export default Adminuserloggedin;
+  export default Adminuserloggedin;
